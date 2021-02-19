@@ -39,11 +39,11 @@ export default {
       component:()=>import("@/views/edit-news/EditNews")
     },
     // 推荐
-    // {
-    //   path:"/recommend",
-    //   name:"recommend",
-    //   component:()=>import("@/views/recommend/recommend-news.vue")
-    // },
+    {
+      path:"/recommend",
+      name:"recommend",
+      component:()=>import("@/views/recommend/recommend-news.vue")
+    },
     // 热点
     {
       path:"/hot",

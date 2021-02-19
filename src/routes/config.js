@@ -12,19 +12,19 @@ export default {
     {
       path:"/login",
       name:"Login",
-      component:()=>import("@/views/Login")
+      component:()=>import("@/views/user/Login")
     },
     // 注册
     {
       path:"/register",
       name:"Register",
-      component:()=>import("@/views/Register")
+      component:()=>import("@/views/user/Register")
     },
     // 详情
     {
       path:"/detail",
       name:"Details",
-      component:()=>import("@/views/Details")
+      component:()=>import("@/views/details/Details.vue")
     },
     // 发布·
     {
@@ -48,66 +48,61 @@ export default {
     {
       path:"/hot",
       name:"hot",
-      component:()=>import("@/views/hot/hot-news.vue")
+      component:()=>import("@/views/hot/HotNews.vue")
     },
     // 科技
     {
       path:"/tech",
       name:"tech",
-      component:()=>import("@/views/technology/technology-news.vue")
+      component:()=>import("@/views/channels/technology-news.vue")
     },
     // 娱乐
     {
       path:"/ent",
       name:"ent",
-      component:()=>import("@/views/entertainment/entertainment-news.vue")
+      component:()=>import("@/views/channels/entertainment-news.vue")
     },
     // 游戏
     {
       path:"/game",
       name:"game",
-      component:()=>import("@/views/game/game-news.vue")
+      component:()=>import("@/views/channels/game-news.vue")
     },
     // 体育
     {
       path:"/sports",
       name:"sports",
-      component:()=>import("@/views/sports/sports-news.vue")
+      component:()=>import("@/views/channels/sports-news.vue")
     },
     // 财经
     {
       path:"/finace",
       name:"finace",
-      component:()=>import("@/views/finance/finance-news.vue")
+      component:()=>import("@/views/channels/finance-news.vue")
     },
     // 军事
     {
       path:"/military",
       name:"military",
-      component:()=>import("@/views/military/military-news.vue")
+      component:()=>import("@/views/channels/military-news.vue")
     },
     // 时尚
     {
       path:"/fashion",
       name:"fashion",
-      component:()=>import("@/views/fashion/fashion-news.vue")
+      component:()=>import("@/views/channels/fashion-news.vue")
     },
     // 旅游
     {
       path:"/travel",
       name:"travel",
-      component:()=>import("@/views/travel/travel-news.vue")
+      component:()=>import("@/views/channels/travel-news.vue")
     },
     // 美食
     {
       path:"/food",
       name:"food",
-      component:()=>import("@/views/food/food-news.vue")
-    },
-    {
-      path:"/erweima",
-      name:"erweima",
-      component:()=>import("@/views/erweima.vue")
+      component:()=>import("@/views/channels/food-news.vue")
     },
     // 用户中心 
     {

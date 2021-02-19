@@ -1,12 +1,29 @@
-EisKInBjX2xvbmdfY29ubmVjdGlvbl90cmFuc2ZlcnJlcV9ydHQQJhiRurclINPIvIEGKAEyEDE2ODg4NTMxMzI4OTM0NTk484Shp4uAgARAhLC6tYCAwAM=
-EhsKElRDUF90YXNrX2lwdjRfc3VjYxAAGMC1tyUg08i8gQYoATIQMTY4ODg1MzEzMjg5MzQ1OTjzhKGni4CABECEsLq1gIDAAw==
-EhUKDHRjcF90YXNrX2R1chBRGMC1tyUg08i8gQYoATIQMTY4ODg1MzEzMjg5MzQ1OTjzhKGni4CABECEsLq1gIDAAw==
-EiQKG3BjX2xvbmdjb25uZWN0aW9uX2hlYXJ0X3J0dBAlGJG6tyUgh8m8gQYoATIQMTY4ODg1MzEzMjg5MzQ1OTjzhKGni4CABECEsLq1gIDAAw==
-EisKInBjX2xvbmdfY29ubmVjdGlvbl90cmFuc2ZlcnJlcV9ydHQQJRiRurclII/JvIEGKAEyEDE2ODg4NTMxMzI4OTM0NTk484Shp4uAgARAhLC6tYCAwAM=
-EhsKElRDUF90YXNrX2lwdjRfc3VjYxAAGMC1tyUgj8m8gQYoATIQMTY4ODg1MzEzMjg5MzQ1OTjzhKGni4CABECEsLq1gIDAAw==
-EhUKDHRjcF90YXNrX2R1chBQGMC1tyUgj8m8gQYoATIQMTY4ODg1MzEzMjg5MzQ1OTjzhKGni4CABECEsLq1gIDAAw==
-Eg8KBldha2V1cBAAGPmxtyUgl8m8gQYoATIQMTY4ODg1MzEzMjg5MzQ1OTjzhKGni4CABECEsLq1gIDAAw==
-EhYKDXdha2V1cF9jb3JwaWQQARj5sbclIJfJvIEGKAEyEDE5NzAzMjQ5NDkwODAwNjg484Shp4uAgARAhLC6tYCAwAM=
-EhMKCndha2V1cF9naWQQARj5sbclIJfJvIEGKAEyEDIyNTE4MDI4NDg4MDU0OTE484Shp4uAgARAhLC6tYCAwAM=
-EhoKEWV4dGVybmFsX2VtcGxveWVlEAAYpLq3JSCXybyBBigBMhAxNjg4ODUzMTMyODkzNDU5OPOEoaeLgIAEQISwurWAgMAD
-EiwKInBjX2xvbmdfY29ubmVjdGlvbl90cmFuc2ZlcnJlcV9ydHQQigEYkbq3JSCXybyBBigBMhAxNjg4ODUzMTMyODkz
+<template>
+  <div class="user-aside">
+    <el-tabs :tab-position="tabPosition" style="height: 200px">
+      <el-tab-pane label="文章管理"><MyNews /></el-tab-pane>
+      <el-tab-pane label="我的关注"><MyFollow /></el-tab-pane>
+      <el-tab-pane label="我的粉丝"><MyFans /></el-tab-pane>
+      <el-tab-pane label="我的收藏">123</el-tab-pane>
+    </el-tabs>
+  </div>
+</template>
+<script>
+import MyNews from './MyNews.vue'
+import MyFollow from './MyNews.vue'
+import MyFans from './MyNews.vue'
+export default {
+  data() {
+    return {
+      tabPosition: 'left',
+    }
+  },
+  coponents: {
+    MyNews,
+    MyFollow,
+    MyFans,
+  },
+}
+</script>
+
+<style></style>

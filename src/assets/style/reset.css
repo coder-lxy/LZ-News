@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li , dl, dd, dt{
+    list-style: none;
+    display: inline-block;
+}
+img {
+    border: 0;
+    outline: none;
+}
+a {
+    text-decoration: none;
+    color: #333;
+  }
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+i,em {
+    font-style: normal;
+  }
+.el-menu  {
+  background-color: red;
+}
+
+/* input {
+    border: none;
+    outline: none;
+    background: none;
+} */
+
+
+

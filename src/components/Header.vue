@@ -1,0 +1,252 @@
+<template>
+  <div class="LZ_header">
+    <el-row :gutter="20">
+      <el-col :xs="4" :md="8" :lg="12">
+        <el-menu
+          :default-active="$route.path"
+          mode="horizontal"
+          @select="handleSelect"
+          router
+        >
+          <el-menu-item
+            v-for="(item, index) in myMenu"
+            :index="item.uri"
+            :key="index"
+            >{{ item.name }}</el-menu-item
+          >
+        </el-menu>
+      </el-col>
+      <el-col :span="4" style="padding-top: 10px">
+        <el-input placeholder="请输入内容">
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+      </el-col>
+      <el-col :span="2" style="padding-top: 10px">
+        <el-button type="primary" plain @click="toWrite()">发布新闻</el-button>
+      </el-col>
+      <el-col :span="1" style="padding-top: 10px; margin-left: 20px" v-show="this.$store.getters['base/token']">
+        <el-popover placement="bottom" width="160px" trigger="hover">
+          <!-- <el-row>
+            <el-col :span="24" align="middle" class="username">{{userInfo.username}}</el-col>
+          </el-row> -->
+          <!-- <el-row type="flex" justify="center">
+            <el-col :span="8">
+              <el-link :underline="false">
+                <el-row><el-col :span="24" align="middle">1</el-col></el-row>
+                <el-row><el-col :span="24" align="middle">粉丝</el-col></el-row>
+              </el-link>
+            </el-col>
+            <el-col :span="8">
+              <el-link :underline="false">
+                <el-row><el-col :span="24" align="middle">2</el-col></el-row>
+                <el-row><el-col :span="24" align="middle">收藏</el-col></el-row>
+              </el-link>
+            </el-col>
+            <el-col :span="8">
+              <el-link :underline="false">
+                <el-row><el-col :span="24" align="middle">3</el-col></el-row>
+                <el-row><el-col :span="24" align="middle">获赞</el-col></el-row>
+              </el-link>
+            </el-col>
+          </el-row> -->
+          <el-row>
+            <el-col :span="24" justify="center">
+              <el-button type="text" style="color:#606266" @click="toUserCenter()">
+                <i class="el-icon-user"></i>
+                个人中心
+              </el-button>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <el-button type="text" style="color:#606266" @click="toLogout()">
+                <Icon type="tuichu"></Icon>
+                退出
+              </el-button>
+            </el-col>
+          </el-row>
+            <el-avatar slot="reference" class="user-login" size="medium" :src="this.$store.getters['base/userInfo'].headUrl"></el-avatar>
+        </el-popover>
+      </el-col>
+      <el-col :span="1" style="padding-top: 10px; margin-left: 18px">
+        <el-badge>
+          <el-button type="text" style="color: #000">收藏</el-button>
+        </el-badge>
+      </el-col>
+      <el-col :span="1" style="padding-top: 10px">
+        <el-badge is-dot>
+          <el-button type="text" style="color: #000">动态</el-button>
+        </el-badge>
+      </el-col>
+      <el-col :span="1" style="padding-top: 10px">
+        <el-badge is-dot>
+          <el-button type="text" style="color: #000">消息</el-button>
+        </el-badge>
+      </el-col>
+      <el-col :span="1" style="padding-top: 10px">
+          <el-button v-show="!this.$store.getters['base/token']" type="text" @click="toLoginPage()">登录/注册</el-button>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import Icon from "./Icon";
+import { logout } from "@/services/userService";
+export default {
+  props: {
+    userInfo: {},
+  },
+  components:{
+    Icon,
+  },
+  data() {
+    return {
+      myMenu: [
+        // {
+        //   name: "要闻",
+        //   uri: "/",
+        // },
+        {
+          name: "推荐",
+          uri: "/",
+        },
+        {
+          name: "热点",
+          uri: "/hot",
+        },
+        {
+          name: "科技",
+          uri: "/tech",
+        },
+        {
+          name: "娱乐",
+          uri: "/ent",
+        },
+        {
+          name: "游戏",
+          uri: "/game",
+        },
+        {
+          name: "体育",
+          uri: "/sports",
+        },
+        {
+          name: "财经",
+          uri: "/finace",
+        },
+        {
+          name: "军事",
+          uri: "/military",
+        },
+        {
+          name: "时尚",
+          uri: "/fashion",
+        },
+        {
+          name: "旅游",
+          uri: "/travel",
+        },
+        {
+          name: "美食",
+          uri: "/food",
+        },
+        // {
+        //   "name": "养生",
+        //   "uri": "/register"
+        // },
+        // {
+        //   "name": "育儿",
+        //   "uri": "/register"
+        // },
+      ],
+      activeIndex: "0",
+    };
+  },
+  methods: {
+    handleSelect(tab, event) {
+      console.log(this.$route.path);
+    },
+    // changeIndex(index) {
+    //   this.currentIndex = index;
+    //   this.$store.commit("changeBlogListIndex", index);
+    //   this.$router.push({
+    //     path: "/recommend",
+    //   });
+    // },
+    toLoginPage() {
+      this.$router.push({
+        path: "/login",
+        // query:''
+      });
+    },
+    toWrite() {
+      this.$router.push({
+        path: "/pub",
+      });
+    },
+    toUserCenter() {
+      this.$router.push({
+        path: '/user'
+      })
+    },
+    toLogout() {
+      // console.log(this.$store.state.isLogin);
+      this.$confirm('确定要退出吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          logout().then((v) => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("userInfo");
+          this.$store.commit("changeIsLogin", false);
+          this.$store.commit("removeUserInfo");
+          this.$router.push({
+            path: "/login",
+          });
+        });
+          this.$message({
+            type: 'success',
+            message: '已退出!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消退出'
+          });          
+        });
+    },
+  },
+};
+</script>
+
+<style>
+.LZ_header {
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+  overflow: hidden;
+}
+.LZ_header .el-menu {
+  overflow: hidden;
+  height: 60px;
+}
+.LZ_header .el-menu.el-menu--horizontal {
+  border-bottom: none;
+}
+.item {
+  margin-top: 10px;
+  margin-right: 40px;
+}
+.el-popover>.el-row {
+  height: 40px;
+  border-bottom: 1px solid #e8e8ed;
+}
+/* .el-popover .el-row:nth-child(1) {
+  border-bottom: none;
+} */
+/* .el-popover .el-row:nth-child(4) {
+  border-bottom: none;
+} */
+</style>

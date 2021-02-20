@@ -95,50 +95,50 @@
 </template>
 
 <script>
-import { getComment, pubComment } from "../services/newsService";
+import { pubComment } from '@/services/newsService'
 export default {
   props: {
-    newsId: "",
+    newsId: '',
     comments: {},
   },
   created() {
-    console.log(this.comments);
+    console.log(this.comments)
   },
   data() {
     return {
       comment: {
-        commentId: "",
-        content: "",
-        createDate: "",
-        blogId: "",
-        userId:'',
+        commentId: '',
+        content: '',
+        createDate: '',
+        blogId: '',
+        userId: '',
         status: 0,
         parentId: -1,
       },
       currentIndex: -1,
-    };
+    }
   },
   mounted() {
-    this.$refs.focusTextarea.focus();
+    this.$refs.focusTextarea.focus()
   },
   methods: {
     toPubComment() {
-      this.comment.blogId = this.newsId;
+      this.comment.blogId = this.newsId
       // console.log(this.comment);
       pubComment(this.comment).then((v) => {
         // console.log(v);
-        this.comment.content = "";
-      });
+        this.comment.content = ''
+      })
     },
     reply(index, commentId) {
-      this.currentIndex = index;
-      this.comment.parentId = commentId;
+      this.currentIndex = index
+      this.comment.parentId = commentId
     },
     closeInput() {
-      this.currentIndex = -1;
+      this.currentIndex = -1
     },
   },
-};
+}
 </script>
 
 <style scoped>

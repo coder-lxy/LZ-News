@@ -1,31 +1,38 @@
 <template>
-  <div class="blog-content-box">
+  <div class="detail_news">
     <el-row class="article-title">
-      <el-col :span=24>
-        <h1>{{news.title}}</h1>
+      <el-col :span="24">
+        <h1>{{ news.title }}</h1>
       </el-col>
     </el-row>
     <el-row class="article-info-box">
       <el-col :span="2">
-        <el-link :underline="false">{{news.username}}</el-link>
+        <el-link :underline="false" @click="toUserCenter(news.userId)">{{
+          news.username
+        }}</el-link>
       </el-col>
-      <el-col :span="6">{{news.createDate}}</el-col>
+      <el-col :span="6">{{ news.createDate }}</el-col>
       <el-col :span="2">
         <Icon type="hit"></Icon>
-        <span class="read-count">{{news.hitCount}}</span>
+        <span class="read-count">{{ news.hitCount }}</span>
       </el-col>
       <el-col :span="2">
         <Icon type="collect"></Icon>
-        <span class="read-count">{{news.hitCount}}</span>
+        <span class="read-count">{{ news.hitCount }}</span>
       </el-col>
     </el-row>
     <div v-html="news.article" class="article-content"></div>
     <div class="more-toolbox">
       <el-row class="toolbox-list">
         <el-col :span="3">
-          <el-link :underline="false" @click="changeLike(news.blogId)" :class="{active:news.isLike===1}">
+          <el-link
+            :underline="false"
+            @click="changeLike(news.blogId)"
+            :class="{ active: news.isLike === 1 }"
+          >
             <Icon type="like"></Icon>
-            <span> {{news.isLike === 1?'已赞':'点赞'}}</span>{{ news.likeCount }}
+            <span> {{ news.isLike === 1 ? '已赞' : '点赞' }}</span
+            >{{ news.likeCount }}
           </el-link>
         </el-col>
         <el-col :span="3">
@@ -46,29 +53,39 @@
 </template>
 
 <script>
-import Icon from "./Icon";
-import { like } from '../services/newsService';
+import Icon from './Icon'
+import { like } from '../services/newsService'
 export default {
   props: {
     news: {},
   },
   components: {
-    Icon
+    Icon,
   },
-  methods:{
+  methods: {
     changeLike(id) {
       like(id).then((v) => {
-        this.news.likeCount = v.data.likeCount;
-        this.news.isLike = v.data.isLike;
-      });
+        this.news.likeCount = v.data.likeCount
+        this.news.isLike = v.data.isLike
+      })
     },
-  }
-};
+    toUserCenter(id) {
+      this.$router.push({
+        path: '/user',
+        query: {
+          id: id,
+        },
+      })
+    },
+  },
+}
 </script>
 
 <style scoped>
-.blog-content-box {
+.detail_news {
   position: relative;
+  width: 980px;
+  min-height: 300px;
   padding: 0 24px 16px;
   background: #fff;
   margin-bottom: 10px;
@@ -76,7 +93,7 @@ export default {
 .el-row.article-title {
   height: 42px;
   line-height: 42px;
-  margin-bottom: 8px
+  margin-bottom: 8px;
 }
 .el-row.article-title h1 {
   font-size: 24px;
@@ -86,7 +103,7 @@ export default {
 }
 .article-content {
   padding-top: 20px;
-  min-height: 500px;
+  min-height: 300px;
 }
 .el-row.article-info-box {
   height: 32px;

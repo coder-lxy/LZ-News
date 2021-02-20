@@ -111,11 +111,11 @@ export default {
       component:()=>import("@/views/user-center/UserCenter.vue")
     },
     // 个人主页
-    {
-      path: "/homepage",
-      name: "homepage",
-      component:()=>import("@/views/user-homepage/Homepage.vue")
-    },
+    // {
+    //   path: "/homepage",
+    //   name: "homepage",
+    //   component:()=>import("@/views/user-homepage/Homepage.vue")
+    // },
     {
       path: "*", // 匹配所有路径
       name:"NotFound",

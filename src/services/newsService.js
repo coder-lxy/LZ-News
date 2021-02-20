@@ -52,11 +52,6 @@ export async function search(msg) {
   var resp = await axios.get(URL + "search/" + msg)
   return resp;
 }
-// 根据用户id, 获取该用户的文章列表
-export async function getUserNews(id) {
-  var resp = await axios.get(URL+ 'user/' + id)
-  return resp
-}
 // 收藏文章
 export async function collect(data) {
   var resp = await axios.post(URL + 'collect/add') 

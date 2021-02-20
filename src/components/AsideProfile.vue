@@ -7,17 +7,17 @@
     </el-row>
     <el-row class="name" type="flex" justify="center" align="middle">
       <el-col :span="4">
-        <span>{{userInfo.user.username}}</span>
+        <span>{{ userInfo.user.username }}</span>
       </el-col>
     </el-row>
     <div class="info-list">
       <el-row type="flex" justify="space-around">
         <el-col :span="4">
-          <div class="count">{{userInfo.blogCountSum}}</div>
+          <div class="count">{{ userInfo.blogCountSum }}</div>
           <div class="title font">原创</div>
         </el-col>
         <el-col :span="4">
-          <div class="count">{{userInfo.hitCountSum}}</div>
+          <div class="count">{{ userInfo.hitCountSum }}</div>
           <div class="title">访问</div>
         </el-col>
         <el-col :span="4">
@@ -32,36 +32,60 @@
           <div class="title">积分</div>
         </el-col>
         <el-col :span="4">
-          <div class="count">{{userInfo.fansCount}}</div>
+          <div class="count">{{ userInfo.fansCount }}</div>
           <div class="title">粉丝</div>
         </el-col>
         <el-col :span="4">
-          <div class="count">{{userInfo.likeCount}}</div>
+          <div class="count">{{ userInfo.likeCount }}</div>
           <div class="title">获赞</div>
         </el-col>
       </el-row>
-      <el-row class="opt-button" type="flex" justify="space-around" align="center">
-        <el-col :span="12"><el-button round size="small">私信</el-button></el-col>
-        <el-col :span="12"><el-button round size="small">关注</el-button></el-col>
+      <el-row
+        class="opt-button"
+        type="flex"
+        justify="space-around"
+        align="center"
+      >
+        <el-col :span="12"
+          ><el-button
+            round
+            size="small"
+            v-if="!userInfo.user.userId === currentUserId"
+            >私信</el-button
+          ></el-col
+        >
+        <el-col :span="12"
+          ><el-button
+            round
+            size="small"
+            v-if="!userInfo.user.userId === currentUserId"
+            >关注</el-button
+          ></el-col
+        >
       </el-row>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  props: {
-    userInfo:{},
+  data() {
+    return {
+      currentUserId: '',
+    }
   },
-  created(){
-    console.log(this.userInfo);
-  }
-};
+  props: {
+    userInfo: {},
+  },
+  created() {
+    this.currentUserId = this.$store.getters['base/userInfo'].userId
+  },
+}
 </script>
 
 <style scoped>
 .aside-box {
+  width: 300px;
   background-color: #fff;
   padding-bottom: 10px;
   margin-bottom: 8px;
@@ -98,6 +122,8 @@ export default {
 .aside-box .info-list .item-rank {
   height: 1px;
   background-color: #f5f6f7;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 .opt-button {
   margin-top: 18px;

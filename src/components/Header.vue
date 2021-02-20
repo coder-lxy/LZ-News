@@ -24,7 +24,11 @@
       <el-col :span="2" style="padding-top: 10px">
         <el-button type="primary" plain @click="toWrite()">发布新闻</el-button>
       </el-col>
-      <el-col :span="1" style="padding-top: 10px; margin-left: 20px" v-show="this.$store.getters['base/token']">
+      <el-col
+        :span="1"
+        style="padding-top: 10px; margin-left: 20px"
+        v-if="this.$store.getters['base/token']"
+      >
         <el-popover placement="bottom" width="160px" trigger="hover">
           <!-- <el-row>
             <el-col :span="24" align="middle" class="username">{{userInfo.username}}</el-col>
@@ -51,7 +55,11 @@
           </el-row> -->
           <el-row>
             <el-col :span="24" justify="center">
-              <el-button type="text" style="color:#606266" @click="toUserCenter()">
+              <el-button
+                type="text"
+                style="color:#606266"
+                @click="toUserCenter"
+              >
                 <i class="el-icon-user"></i>
                 个人中心
               </el-button>
@@ -59,13 +67,18 @@
           </el-row>
           <el-row>
             <el-col :span="24">
-              <el-button type="text" style="color:#606266" @click="toLogout()">
+              <el-button type="text" style="color:#606266" @click="toLogout">
                 <Icon type="tuichu"></Icon>
                 退出
               </el-button>
             </el-col>
           </el-row>
-            <el-avatar slot="reference" class="user-login" size="medium" :src="this.$store.getters['base/userInfo'].headUrl"></el-avatar>
+          <el-avatar
+            slot="reference"
+            class="user-login"
+            size="medium"
+            :src="this.$store.getters['base/userInfo'].headUrl"
+          ></el-avatar>
         </el-popover>
       </el-col>
       <el-col :span="1" style="padding-top: 10px; margin-left: 18px">
@@ -84,72 +97,73 @@
         </el-badge>
       </el-col>
       <el-col :span="1" style="padding-top: 10px">
-          <el-button v-show="!this.$store.getters['base/token']" type="text" @click="toLoginPage()">登录/注册</el-button>
+        <el-button
+          v-if="!this.$store.getters['base/token']"
+          type="text"
+          @click="toLoginPage()"
+          >登录/注册</el-button
+        >
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import Icon from "./Icon";
-import { logout } from "@/services/userService";
+import Icon from './Icon'
+import { logout } from '@/services/userService'
 export default {
   props: {
     userInfo: {},
   },
-  components:{
+  components: {
     Icon,
   },
   data() {
     return {
       myMenu: [
-        // {
-        //   name: "要闻",
-        //   uri: "/",
-        // },
         {
-          name: "推荐",
-          uri: "/",
+          name: '推荐',
+          uri: '/',
         },
         {
-          name: "热点",
-          uri: "/hot",
+          name: '热点',
+          uri: '/hot',
         },
         {
-          name: "科技",
-          uri: "/tech",
+          name: '科技',
+          uri: '/tech',
         },
         {
-          name: "娱乐",
-          uri: "/ent",
+          name: '娱乐',
+          uri: '/ent',
         },
         {
-          name: "游戏",
-          uri: "/game",
+          name: '游戏',
+          uri: '/game',
         },
         {
-          name: "体育",
-          uri: "/sports",
+          name: '体育',
+          uri: '/sports',
         },
         {
-          name: "财经",
-          uri: "/finace",
+          name: '财经',
+          uri: '/finace',
         },
         {
-          name: "军事",
-          uri: "/military",
+          name: '军事',
+          uri: '/military',
         },
         {
-          name: "时尚",
-          uri: "/fashion",
+          name: '时尚',
+          uri: '/fashion',
         },
         {
-          name: "旅游",
-          uri: "/travel",
+          name: '旅游',
+          uri: '/travel',
         },
         {
-          name: "美食",
-          uri: "/food",
+          name: '美食',
+          uri: '/food',
         },
         // {
         //   "name": "养生",
@@ -160,12 +174,12 @@ export default {
         //   "uri": "/register"
         // },
       ],
-      activeIndex: "0",
-    };
+      activeIndex: '0',
+    }
   },
   methods: {
     handleSelect(tab, event) {
-      console.log(this.$route.path);
+      console.log(this.$route.path)
     },
     // changeIndex(index) {
     //   this.currentIndex = index;
@@ -176,49 +190,53 @@ export default {
     // },
     toLoginPage() {
       this.$router.push({
-        path: "/login",
+        path: '/login',
         // query:''
-      });
+      })
     },
     toWrite() {
       this.$router.push({
-        path: "/pub",
-      });
+        path: '/pub',
+      })
     },
     toUserCenter() {
       this.$router.push({
-        path: '/user'
+        path: '/user',
+        query: {
+          id: this.$store.getters['base/userInfo'].userId,
+        },
       })
     },
     toLogout() {
-      // console.log(this.$store.state.isLogin);
       this.$confirm('确定要退出吗?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
           logout().then((v) => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("userInfo");
-          this.$store.commit("changeIsLogin", false);
-          this.$store.commit("removeUserInfo");
-          this.$router.push({
-            path: "/login",
-          });
-        });
+            // localStorage.removeItem('token')
+            // localStorage.removeItem('userInfo')
+            this.$store.commit('base/token', '')
+            this.$store.commit('base/userInfo', null)
+            this.$router.push({
+              path: '/login',
+            })
+          })
           this.$message({
             type: 'success',
-            message: '已退出!'
-          });
-        }).catch(() => {
+            message: '已退出!',
+          })
+        })
+        .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消退出'
-          });          
-        });
+            message: '已取消退出',
+          })
+        })
     },
   },
-};
+}
 </script>
 
 <style>
@@ -239,7 +257,7 @@ export default {
   margin-top: 10px;
   margin-right: 40px;
 }
-.el-popover>.el-row {
+.el-popover > .el-row {
   height: 40px;
   border-bottom: 1px solid #e8e8ed;
 }

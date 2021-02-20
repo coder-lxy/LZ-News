@@ -9,6 +9,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+store.commit('base/token', localStorage.getItem('token'));
+store.commit('base/userInfo', JSON.parse(localStorage.getItem('userInfo')))
 // http response 响应拦截器
 var isLock = false
 axios.interceptors.request.use(config => {

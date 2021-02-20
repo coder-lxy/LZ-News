@@ -43,12 +43,10 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           login(this.loginForm).then((v) => {
-            console.log(v)
             if (v.data.code === 0) {
               var startTime = Date.now()
               localStorage.setItem('startTime', startTime)
-              this.$store.commit('setUserInfo', v.data.data)
-              this.$store.commit('changeIsLogin', true)
+              this.$store.commit('base/userInfo', v.data.data)
               // console.log(startTime);
               this.$router.push({
                 path: '/',

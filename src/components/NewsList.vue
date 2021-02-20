@@ -20,13 +20,23 @@
         <el-footer height="22px">
           <el-row>
             <el-col :span="4">
-              <el-link :underline="false" class="footer-item">{{ item.username }}</el-link>
+              <el-link
+                :underline="false"
+                class="footer-item"
+                @click="toUserCenter(item.userId)"
+                >{{ item.username }}</el-link
+              >
             </el-col>
             <el-col :span="8">
               <span class="footer-item">{{ item.createDate }}</span>
             </el-col>
             <el-col :span="3">
-              <el-link :underline="false" class="footer-item" @click="changeLike(item.blogId, index)" :class="{active:item.isLike===1}">
+              <el-link
+                :underline="false"
+                class="footer-item"
+                @click="changeLike(item.blogId, index)"
+                :class="{ active: item.isLike === 1 }"
+              >
                 <Icon type="like"></Icon>
                 {{ item.likeCount }}
               </el-link>
@@ -36,7 +46,11 @@
               <span class="footer-item">{{ item.hitCount }}</span>
             </el-col>
             <el-col :span="3">
-              <el-link :underline="false" class="footer-item" @click="toDetail(item.blogId)">
+              <el-link
+                :underline="false"
+                class="footer-item"
+                @click="toDetail(item.blogId)"
+              >
                 <Icon type="comment"></Icon>
                 {{ item.commentCount }}
               </el-link>
@@ -49,8 +63,8 @@
 </template>
 
 <script>
-import Icon from "./Icon";
-import {like} from "@/services/newsService.js"
+import Icon from './Icon'
+import { like } from '@/services/newsService.js'
 export default {
   props: {
     newsList: [],
@@ -58,7 +72,7 @@ export default {
   data() {
     return {
       blogId: null,
-    };
+    }
   },
   components: {
     Icon,
@@ -66,27 +80,35 @@ export default {
   methods: {
     toDetail(id) {
       this.$router.push({
-        path: "/detail",
+        path: '/detail',
         query: {
           id: id,
         },
-      });
+      })
     },
     changeLike(id, index) {
       // console.log(this.blogList[index]);
       // this.isLike[index]=true;
       like(id).then((v) => {
         // if(v.data.isLike===1)
-        this.newsList[index].likeCount = v.data.likeCount;
-        this.newsList[index].isLike = v.data.isLike;
+        this.newsList[index].likeCount = v.data.likeCount
+        this.newsList[index].isLike = v.data.isLike
         // likeMsg()
-        console.log(v);
-      });
-      console.log(this.blogList[index].likeCount);
+        console.log(v)
+      })
+      console.log(this.blogList[index].likeCount)
       // this.likeCount=this.blogList[index].likeCount
-    }
-  }
-};
+    },
+    toUserCenter(id) {
+      this.$router.push({
+        path: '/user',
+        query: {
+          id: id,
+        },
+      })
+    },
+  },
+}
 </script>
 
 <style scoped>

@@ -5,7 +5,6 @@ export default {
     return {
       token: '',
       userInfo: null,
-      isLogin: ''
     }
   },
   getters: {
@@ -16,9 +15,6 @@ export default {
     [BASE.USER_INFO](state) {
       console.log(JSON.parse(window.localStorage.getItem('userInfo')));
       return state.userInfo || JSON.parse(window.localStorage.getItem('userInfo'))
-    },
-    [BASE.IS_LOGIN](state) {
-      return state.isLogin || window.localStorage.getItem('isLogin')
     }
   },
   mutations: {
@@ -30,10 +26,6 @@ export default {
     [BASE.USER_INFO] (state, payload) {
       state.userInfo = payload
       window.localStorage.setItem('userInfo', JSON.stringify(payload))
-    },
-    [BASE.IS_LOGIN] (state, payload) {
-      state.isLogin = payload
-      window.localStorage.setItem('isLogin', payload)
     }
   },
   actions: {

@@ -14,7 +14,7 @@
       <el-row type="flex" justify="space-around">
         <el-col :span="4">
           <div class="count">{{ userInfo.blogCountSum }}</div>
-          <div class="title font">原创</div>
+          <div class="title font" @click="toUserCenter(userInfo.user.userId)">文章</div>
         </el-col>
         <el-col :span="4">
           <div class="count">{{ userInfo.hitCountSum }}</div>
@@ -80,6 +80,16 @@ export default {
   created() {
     this.currentUserId = this.$store.getters['base/userInfo'].userId
   },
+  methods: {
+    toUserCenter(id) {
+      this.$router.push({
+        path: '/user',
+        query: {
+          id: id,
+        },
+      })
+    },
+  }
 }
 </script>
 

@@ -24,11 +24,13 @@
     <el-row v-for="(item, index) in newsList" :key="index" class="list_item">
       <el-row class="title">
         <el-col :span="24">
-          <el-link :underline="false">{{ item.title }}</el-link>
+          <el-link :underline="false" @click="toDetail(item.blogId)">{{
+            item.title
+          }}</el-link>
         </el-col>
       </el-row>
       <el-row class="news_info">
-        <el-col :span="6">
+        <el-col :span="5">
           {{ item.createDate }}
           <el-divider direction="vertical"></el-divider>
         </el-col>
@@ -103,6 +105,14 @@ export default {
       }
       getUserNewsList(this.requestData).then((v) => {
         this.newsList = v.data.data
+      })
+    },
+    toDetail(id) {
+      this.$router.push({
+        path: '/detail',
+        query: {
+          id: id,
+        },
       })
     },
     editNews(id) {

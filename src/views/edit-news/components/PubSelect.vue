@@ -30,7 +30,7 @@
     <el-row>
       <el-col :span="2">分类:</el-col>
       <el-col :span="20">
-        <el-select v-model="newArticle.types[0]" placeholder="请选择">
+        <el-select v-model="editArticle.types[0]" placeholder="请选择">
           <el-option
             v-for="item in options"
             :key="item"
@@ -56,9 +56,10 @@
 
 <script>
 import { publish } from '@/services/newsService.js'
+import { updateNews } from '../../../services/newsService'
 export default {
   props: {
-    newArticle: {},
+    editArticle: {},
   },
   data() {
     return {
@@ -77,6 +78,9 @@ export default {
         '美食',
       ],
     }
+  },
+  created() {
+    this.dynamicTags = this.editArticle.labels
   },
   methods: {
     hiddenDialog() {
@@ -101,8 +105,8 @@ export default {
       this.inputValue = ''
     },
     pubNews() {
-      this.newArticle.labels = this.dynamicTags
-      publish(this.newArticle).then((v) => {
+      this.editArticle.labels = this.dynamicTags
+      updateNews(this.editArticle).then((v) => {
         this.$message('发布成功！')
         this.$router.push({
           path: '/',

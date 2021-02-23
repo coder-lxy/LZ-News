@@ -1,8 +1,14 @@
 import axios from "axios";
 import { URL } from "./config";
 // 发布新闻
-export async function publish(msg) {
-  var resp = await axios.post(URL + "user/editor/", msg)
+export async function publish(data) {
+  var resp = await axios.post(URL + "user/editor/", data)
+  // console.log(resp);
+  return resp;
+}
+// 编辑新闻
+export async function updateNews(data) {
+  var resp = await axios.post(URL + "user/update/", data)
   // console.log(resp);
   return resp;
 }
@@ -27,8 +33,8 @@ export async function pubComment(comment) {
   return resp;
 }
 // 推荐
-export async function getRecList(page) {
-  var resp = await axios.get(URL + "user/recommend/" + page)
+export async function getRecList(data) {
+  var resp = await axios.get(URL + "user/recommend/")
   return resp;
 }
 // 热榜

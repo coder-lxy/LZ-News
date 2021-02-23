@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import NewsList from "@/components/NewsList";
-import {getRecList} from "@/services/newsService"
+import NewsList from '@/components/NewsList'
+import { getRecList } from '@/services/newsService'
 export default {
   components: {
     NewsList,
@@ -16,15 +16,18 @@ export default {
   data() {
     return {
       newsList: [],
-      page: 1
+      requestData: {
+        page: 1,
+        limit: 10,
+      },
     }
   },
   created() {
-    getRecList(this.page).then(v => {
+    getRecList(this.requestData).then((v) => {
       this.newsList = v.data.data
     })
   },
-};
+}
 </script>
 
 <style scoped>

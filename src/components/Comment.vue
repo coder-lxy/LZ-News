@@ -49,14 +49,18 @@
                 v-for="(i, index1) in item.commentVOS"
                 :key="index1"
               >
-                <a href="">
-                  <img :src="i.headUrl" alt="" />
-                </a>
+                <el-link :underline="false" @click="toUserCenter(i.userId)">
+                  <img
+                    :src="i.headUrl"
+                    alt=""
+                    @click="toUserCenter(i.userId)"
+                  />
+                </el-link>
                 <div class="right-box">
                   <div class="new-info-box">
-                    <a href="">
+                    <el-link :underline="false" @click="toUserCenter(i.userId)">
                       <span class="name">{{ i.username }}</span>
-                    </a>
+                    </el-link>
                     <span class="text">回复</span>
                     <span class="name">{{ item.username }}</span>
                     <span class="colon">:</span>
@@ -136,6 +140,14 @@ export default {
     },
     closeInput() {
       this.currentIndex = -1
+    },
+    toUserCenter(id) {
+      this.$router.push({
+        path: '/user',
+        query: {
+          id: id,
+        },
+      })
     },
   },
 }

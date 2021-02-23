@@ -13,7 +13,6 @@ export default {
       return state.token || window.localStorage.getItem('token')
     },
     [BASE.USER_INFO](state) {
-      console.log(JSON.parse(window.localStorage.getItem('userInfo')));
       return state.userInfo || JSON.parse(window.localStorage.getItem('userInfo'))
     }
   },

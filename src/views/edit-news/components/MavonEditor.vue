@@ -13,35 +13,36 @@
 </template>
 
 <script>
-import { mavonEditor } from "mavon-editor";
-import "mavon-editor/dist/css/index.css";
+import { mavonEditor } from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 // import { uploadEditorImg } from '../services/blogService';
 export default {
+  props: {
+    content: '',
+  },
   // 注册
   components: {
     mavonEditor,
   },
   data() {
     return {
-      html: "", // 及时转的html
+      html: '', // 及时转的html
       configs: {},
       status: false,
-    };
+    }
   },
-  props: {
-    content: ""
-  },
+
   methods: {
     // 将图片上传到服务器，返回地址替换到md中
     $imgAdd(pos, $file) {
       // alert(pos);
       // console.log($file)
-      let formData = new FormData();
+      let formData = new FormData()
 
-      formData.append("file",$file);
-      uploadEditorImg(formData).then(v=>{
-        console.log(v);
-         this.$refs.md.$img2Url(pos, v.data.msg);
+      formData.append('file', $file)
+      uploadEditorImg(formData).then((v) => {
+        console.log(v)
+        this.$refs.md.$img2Url(pos, v.data.msg)
       })
       // this.$upload
       //   .post("http://10.101.76.66:8081/uploadeditorimage", formdata)
@@ -56,16 +57,16 @@ export default {
 
     // 所有操作都会被解析重新渲染
     change(value, render) {
-      console.log(value);
+      // console.log(value)
+      // console.log(render)
       // console.log(this.content)
       // render 为 markdown 解析后的结果[html]
-      this.html = render;
-      this.$emit("getContent", value);
+      this.html = render
+      this.$emit('getContent', value)
     },
   },
   mounted() {},
-};
+}
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -2,27 +2,32 @@
   <div class="pub_news">
     <PubHeader class="header" @pubClick="handleClick"></PubHeader>
     <MavonEditor @getContent="setContent" />
-    <PubSelect :dialogStatus="dialogStatus"></PubSelect>
-    <!-- <Publish
-      v-show="modalStatus"
-      @modalChange="toChange"
-      :title="this.title"
-      :content="this.content"
-    /> -->
-    <!-- <div v-show="modalStatus" class="mask"></div> -->
+    <el-dialog
+      title="发布文章"
+      :visible.sync="dialogVisible"
+      width="40%"
+      :before-close="handleClose"
+    >
+      <PubSelect :newArticle="newArticle" @hiddenDialog="handleHid"></PubSelect>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import PubHeader from './components/PubHeader'
 import PubSelect from './components/PubSelect'
-import MavonEditor from '@/components/MavonEditor'
+import MavonEditor from './components/MavonEditor'
 export default {
   data() {
     return {
-      dialogStatus: false,
-      title: '',
-      content: '',
+      newArticle: {
+        title: '',
+        summary: '',
+        article: '',
+        labels: [],
+        types: [],
+      },
+      dialogVisible: false,
     }
   },
   components: {
@@ -32,11 +37,22 @@ export default {
   },
   methods: {
     handleClick(val) {
-      this.dialogStatus = true
-      this.title = val
+      console.log(this.newArticle.article)
+      this.newArticle.title = val
+      this.dialogVisible = true
     },
     setContent(content) {
-      this.content = content
+      this.newArticle.article = content
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then((_) => {
+          done()
+        })
+        .catch((_) => {})
+    },
+    handleHid(val) {
+      this.dialogVisible = val
     },
   },
 }

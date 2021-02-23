@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="main">
+    <div class="main" @scroll="handleScroll">
       <newsList :newsList="newsList"></newsList>
+      <Loading v-show="isLoading"></Loading>
     </div>
   </div>
 </template>
@@ -9,9 +10,13 @@
 <script>
 import NewsList from '@/components/NewsList'
 import { getRecList } from '@/services/newsService'
+import Loading from "@/components/Loading";
+import {debounce} from "@/util/base.js"
+
 export default {
   components: {
     NewsList,
+    Loading,
   },
   data() {
     return {
@@ -20,13 +25,38 @@ export default {
         page: 1,
         limit: 10,
       },
+      isLoading: false,
     }
   },
   created() {
-    getRecList(this.requestData).then((v) => {
-      this.newsList = v.data.data
-    })
+    this.getRec()
   },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll, true);
+  },
+  methods: {
+    getRec() {
+      this.isLoading = true;
+      getRecList(this.requestData).then((v) => {
+        if(v.data.data.length===0) {
+          this.$message('暂无推荐内容')
+        } else {
+          this.newsList = this.newsList.concat(v.data.data);
+          this.requestData.page++;
+        }
+        this.isLoading = false;
+      });
+    },
+
+    handleScroll(e) {
+      let scrollTop = e.target.documentElement.scrollTop;
+      let clientHeight = e.target.documentElement.clientHeight;
+      let scrollHeight = e.target.documentElement.scrollHeight;
+      if (scrollTop + clientHeight === scrollHeight - 1) {
+        this.getRec()
+      }
+    },
+  }
 }
 </script>
 

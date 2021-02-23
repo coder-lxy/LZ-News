@@ -34,12 +34,12 @@ export async function pubComment(comment) {
 }
 // 推荐
 export async function getRecList(data) {
-  var resp = await axios.get(URL + "user/recommend/")
+  var resp = await axios.post(URL + "user/recommend/", data)
   return resp;
 }
 // 热榜
-export async function getHotList(page) {
-  var resp = await axios.get(URL + "all/hot/" + page)
+export async function getHotList(data) {
+  var resp = await axios.post(URL + "all/hot/" , data)
   return resp;
 }
 // 根据用户id 获取新闻列表(按最后发布时间)

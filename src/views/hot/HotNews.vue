@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="main" @scroll="handleScroll">
+      <el-backtop></el-backtop>
       <newsList :newsList="newsList"></newsList>
       <Loading v-show="isLoading"></Loading>
     </div>
@@ -47,7 +48,6 @@ export default {
         this.isLoading = false;
       });
     },
-
     handleScroll(e) {
       let scrollTop = e.target.documentElement.scrollTop;
       let clientHeight = e.target.documentElement.clientHeight;

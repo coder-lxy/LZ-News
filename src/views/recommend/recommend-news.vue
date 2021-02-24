@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="main" @scroll="handleScroll">
+      <el-backtop></el-backtop>
       <newsList :newsList="newsList"></newsList>
       <Loading v-show="isLoading"></Loading>
     </div>

@@ -6,7 +6,7 @@
       ></el-tab-pane>
       <el-tab-pane label="我的关注"><MyFollow /></el-tab-pane>
       <el-tab-pane label="我的粉丝"><MyFans /></el-tab-pane>
-      <el-tab-pane label="我的收藏"><MyCollect /></el-tab-pane>
+      <el-tab-pane label="我的收藏"><MyCollect :userId="userId"></MyCollect></el-tab-pane>
     </el-tabs>
   </div>
 </template>

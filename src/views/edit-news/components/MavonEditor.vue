@@ -41,18 +41,17 @@ export default {
 
       formData.append('file', $file)
       uploadEditorImg(formData).then((v) => {
-        console.log(v)
         this.$refs.md.$img2Url(pos, v.data.msg)
       })
-      // this.$upload
-      //   .post("http://10.101.76.66:8081/uploadeditorimage", formdata)
-      //   .then((res) => {
-      //     console.log(res.data);
-      //     this.$refs.md.$img2Url(pos, res.data);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      this.$upload
+        .post("http://10.101.76.66:8081/uploadeditorimage", formdata)
+        .then((res) => {
+          console.log(res.data);
+          this.$refs.md.$img2Url(pos, res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     // 所有操作都会被解析重新渲染

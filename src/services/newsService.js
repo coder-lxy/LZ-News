@@ -59,13 +59,19 @@ export async function search(msg) {
   return resp;
 }
 // 收藏文章
-export async function collect(data) {
-  var resp = await axios.post(URL + 'collect/add') 
+export async function collect(arg1, arg2) {
+  var resp = await axios.get(URL + 'collect/add/' + arg1 +'/' + arg2) 
+    return resp
+}
+// 获取收藏的文章
+export async function collectList(id) {
+  var resp = await axios.get(URL + 'collect/select/' + id) 
     console.log(resp);
     return resp
 }
+// 获取动态
 export async function getFollow(page) {
-  var resp = await axios.post(URL + "user/follow/"+ page)
+  var resp = await axios.get(URL + "user/follow/"+ page)
   // console.log(resp);
   return resp;
 }

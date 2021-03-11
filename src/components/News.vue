@@ -42,7 +42,7 @@
           </el-link>
         </el-col>
         <el-col :span="3">
-          <el-link :underline="false">
+          <el-link :underline="false" @click="toCollect(news.blogId)">
             <Icon type="collect"></Icon>
             <span>收藏{{ news.collect }}</span>
           </el-link>
@@ -54,7 +54,7 @@
 
 <script>
 import Icon from './Icon'
-import { like } from '../services/newsService'
+import { collect, like } from '@/services/newsService'
 export default {
   props: {
     news: {},
@@ -77,6 +77,12 @@ export default {
         },
       })
     },
+    // 收藏文章
+    toCollect(arg) {
+      collect(this.$store.getters['base/userInfo'].userId, arg).then(v => {
+        console.log(v);
+      })
+    }
   },
 }
 </script>

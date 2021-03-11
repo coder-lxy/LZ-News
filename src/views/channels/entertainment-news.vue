@@ -53,7 +53,7 @@ export default {
       let scrollHeight = e.target.documentElement.scrollHeight;
       // console.log(scrollTop + clientHeight-scrollHeight);
       if (scrollTop + clientHeight - scrollHeight > -1) {
-        this.getHot()
+        this.getList()
       }
     },
   }

@@ -123,6 +123,10 @@ img {
   width: 220px;
   height: 130px;
 }
+.el-main {
+  color: #8a8a8a;
+  font-size: 14px;
+}
 .footer-item {
   font-size: 12px;
   color: #666;

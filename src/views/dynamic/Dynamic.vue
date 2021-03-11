@@ -2,28 +2,27 @@
   <div>
     <div class="main">
       <el-backtop></el-backtop>
-      <newsList :newsList="newsList"></newsList>
+      <DynamicList :dynamicList= "newsList"></DynamicList>
+      <!-- <newsList :newsList="newsList"></newsList> -->
       <Loading v-show="isLoading"></Loading>
     </div>
   </div>
 </template>
 
 <script>
-import NewsList from "@/components/NewsList";
-import {getNewsList} from "@/services/newsService"
+import DynamicList from "@/components/DynamicList";
+import {getFollow} from "@/services/newsService"
 import Loading from "@/components/Loading";
-
 export default {
   components: {
-    NewsList,
-    Loading,
+    DynamicList,
+    Loading
   },
   data() {
     return {
       newsList: [],
       requestData: {
         page: 1,
-        typeName: '时尚'
       },
       isLoading: false,
     }
@@ -37,7 +36,7 @@ export default {
   methods: {
     getList() {
       this.isLoading = true;
-      getNewsList(this.requestData).then((v) => {
+      getFollow(this.requestData.page).then((v) => {
         if(v.data.data.length===0) {
           this.$message('已经到底啦！')
         } else {
@@ -63,6 +62,6 @@ export default {
 <style scoped>
 .main {
   width: 670px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 </style>

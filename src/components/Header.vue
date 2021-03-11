@@ -12,8 +12,7 @@
             v-for="(item, index) in myMenu"
             :index="item.uri"
             :key="index"
-            >{{ item.name }}</el-menu-item
-          >
+            >{{ item.name }}</el-menu-item>
         </el-menu>
       </el-col>
       <el-col :span="4" style="padding-top: 10px">
@@ -87,8 +86,8 @@
         </el-badge>
       </el-col>
       <el-col :span="1" style="padding-top: 10px">
-        <el-badge is-dot>
-          <el-button type="text" style="color: #000">动态</el-button>
+        <el-badge>
+          <el-button type="text" style="color: #000" @click="dynamic">动态</el-button>
         </el-badge>
       </el-col>
       <el-col :span="1" style="padding-top: 10px">
@@ -179,7 +178,6 @@ export default {
   },
   methods: {
     handleSelect(tab, event) {
-      console.log(this.$route.path)
     },
     // changeIndex(index) {
     //   this.currentIndex = index;
@@ -235,6 +233,11 @@ export default {
           })
         })
     },
+    dynamic() {
+      this.$router.push({
+        path: '/dynamic',
+      })
+    }
   },
 }
 </script>

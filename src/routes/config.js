@@ -110,6 +110,12 @@ export default {
       name:"user",
       component:()=>import("@/views/user-center/UserCenter.vue")
     },
+    // 动态页
+    {
+      path: '/dynamic',
+      name: 'dynamic',
+      component: () => import('@/views/dynamic/Dynamic.vue')
+    },
     // 个人主页
     // {
     //   path: "/homepage",

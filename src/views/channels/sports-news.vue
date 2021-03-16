@@ -23,6 +23,7 @@ export default {
       newsList: [],
       requestData: {
         page: 1,
+        limit: 10,
         typeName: '体育'
       },
       isLoading: false,

@@ -76,7 +76,7 @@
             slot="reference"
             class="user-login"
             size="medium"
-            :src="this.$store.getters['base/userInfo'].headUrl"
+            :src="headUrl"
           ></el-avatar>
         </el-popover>
       </el-col>
@@ -119,6 +119,7 @@ export default {
   },
   data() {
     return {
+      headUrl: '',
       myMenu: [
         {
           name: '推荐',
@@ -175,6 +176,9 @@ export default {
       ],
       activeIndex: '0',
     }
+  },
+  created() {
+    this.headUrl = this.$store.getters['base/userInfo'].headUrl
   },
   methods: {
     handleSelect(tab, event) {

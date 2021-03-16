@@ -36,9 +36,8 @@
                 <span class="floor-num"></span>
                 <span class="new-comment">{{ item.content }}</span>
                 <span class="date">{{ item.createDate }}</span>
-                <span class="btn-reply" @click="reply(index, item.commentId)"
-                  >回复</span
-                >
+                <span class="btn-reply" @click="reply(index, item.commentId)">回复</span>
+                <span class="btn-reply" v-if="item.userId===currentUser" @click="toDelComment(item.commentId)">删除</span>
               </div>
             </div>
           </li>
@@ -68,6 +67,9 @@
                     <span class="date">{{ i.createDate }}</span>
                     <span class="btn-reply" @click="reply(index, i.commentId)"
                       >回复
+                    </span>
+                    <span class="btn-reply" v-show="i.userId===currentUser" @click="toDelComment(i.commentId)"
+                      >删除
                     </span>
                   </div>
                 </div>
@@ -99,17 +101,12 @@
 </template>
 
 <script>
-import { pubComment } from '@/services/newsService'
+import { getComment, pubComment, delComment } from '@/services/newsService'
 export default {
-  props: {
-    newsId: '',
-    comments: {},
-  },
-  created() {
-    console.log(this.comments)
-  },
   data() {
     return {
+      currentUser: '',
+      comments: {},
       comment: {
         commentId: '',
         content: '',
@@ -119,20 +116,55 @@ export default {
         status: 0,
         parentId: -1,
       },
+      commentData: {
+        page: 1,
+        limit: 10,
+        blogId: ''
+      },
       currentIndex: -1,
     }
   },
-  mounted() {
-    this.$refs.focusTextarea.focus()
+  created() {
+    this.currentUser = this.$store.getters['base/userInfo'].userId // 通过当前用户控制删除评论按钮显示
+    this.initComment()
   },
   methods: {
+    // 获取评论
+    initComment() {
+      this.commentData.blogId = this.$route.query.id
+      getComment(this.commentData).then((v) => {
+        this.comments = v.data.data
+      })
+    },
     toPubComment() {
-      this.comment.blogId = this.newsId
-      // console.log(this.comment);
+      this.comment.blogId = this.$route.query.id
       pubComment(this.comment).then((v) => {
-        // console.log(v);
+        this.initComment()
         this.comment.content = ''
       })
+    },
+    // 删除评论
+    toDelComment(id) {
+      this.$confirm('确定要删除吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          delComment(id).then(v => {
+            this.initComment()
+          })
+          this.$message({
+            type: 'success',
+            message: '已删除!',
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除！',
+          })
+        })
     },
     reply(index, commentId) {
       this.currentIndex = index
@@ -340,6 +372,7 @@ export default {
   .right-box
   .new-info-box
   .new-comment {
+  margin-left: 10px;
   color: #222226;
   word-break: break-all;
   font-size: 14px;
@@ -352,7 +385,7 @@ export default {
   .right-box
   .new-info-box
   .date {
-  margin-left: 8px;
+  margin-left: 10px;
   font-size: 12px;
   color: #6b6b6b;
 }
@@ -365,7 +398,7 @@ export default {
   .right-box
   .new-info-box
   .btn-reply {
-  margin: 0;
+  margin-left: 10px;
   min-width: auto;
   font-size: 14px;
   height: 20px;

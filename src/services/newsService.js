@@ -23,13 +23,18 @@ export async function getNews(id) {
   return resp.data;
 }
 // 获取评论
-export async function getComment(blogId) {
-  var resp = await axios.get(URL + "comment/" + blogId)
+export async function getComment(data) {
+  var resp = await axios.post(URL + "all/getCommentVOByBlogId/", data)
   return resp;
 }
 // 发布评论
 export async function pubComment(comment) {
   var resp = await axios.post(URL + "user/publishcomment/", comment)
+  return resp;
+}
+// 删除评论
+export async function delComment(id) {
+  var resp = await axios.get(URL + "user/deleteCommentByCommentId?commentId=" + id)
   return resp;
 }
 // 推荐

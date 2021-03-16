@@ -3,7 +3,7 @@
     <AsideProfile :userInfo="userInfo" class="aside" />
     <div class="main">
       <News :news="news" />
-      <Comment :newsId="news.blogId" :comments="comments"></Comment>
+      <Comment></Comment>
     </div>
   </div>
 </template>
@@ -20,7 +20,6 @@ export default {
       news: {},
       // userId: "",
       userInfo: {},
-      comments: {},
     }
   },
   components: {
@@ -30,18 +29,10 @@ export default {
   },
   created() {
     getNews(this.$route.query.id).then((v) => {
-      console.log(v)
       this.news = v.data
-      // console.log(this.blog.userId);
       getUserInfo(this.news.userId).then((v) => {
-        console.log(v)
         this.userInfo = v.data
       })
-    })
-    getComment(this.$route.query.id).then((v) => {
-      // console.log(v.data);
-      this.comments = v.data
-      // console.log(this.comments);
     })
   },
 }

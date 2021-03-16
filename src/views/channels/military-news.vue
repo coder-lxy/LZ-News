@@ -23,6 +23,7 @@ export default {
       newsList: [],
       requestData: {
         page: 1,
+        limit: 10,
         typeName: '军事'
       },
       isLoading: false,

@@ -67,7 +67,12 @@ import Icon from './Icon'
 import { like } from '@/services/newsService.js'
 export default {
   props: {
-    newsList: [],
+    newsList: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
   },
   data() {
     return {

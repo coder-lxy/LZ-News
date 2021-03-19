@@ -7,14 +7,14 @@
     </el-row>
     <el-row class="name" type="flex" justify="center" align="middle">
       <el-col :span="4">
-        <span>{{ userInfo.user.username }}</span>
+        <span>{{userInfo.user.username }}</span>
       </el-col>
     </el-row>
     <div class="info-list">
       <el-row type="flex" justify="space-around">
         <el-col :span="4">
           <div class="count">{{ userInfo.blogCountSum }}</div>
-          <div class="title font" @click="toUserCenter(userInfo.user.userId)">文章</div>
+          <div class="title font" @click="toUserCenter(user.userId)">文章</div>
         </el-col>
         <el-col :span="4">
           <div class="count">{{ userInfo.hitCountSum }}</div>
@@ -50,7 +50,7 @@
           ><el-button
             round
             size="small"
-            v-if="!userInfo.user.userId === currentUserId"
+            v-if="userInfo.user.userId !== currentUserId"
             >私信</el-button
           ></el-col
         >
@@ -58,7 +58,7 @@
           ><el-button
             round
             size="small"
-            v-if="!userInfo.user.userId === currentUserId"
+            v-if="userInfo.user.userId !== currentUserId"
             >关注</el-button
           ></el-col
         >
@@ -79,6 +79,8 @@ export default {
   },
   created() {
     this.currentUserId = this.$store.getters['base/userInfo'].userId
+    console.log(this.userInfo.user.userId);
+    console.log(this.currentUserId);
   },
   methods: {
     toUserCenter(id) {

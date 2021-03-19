@@ -15,6 +15,7 @@ export default {
   data() {
     return {
       userInfo: {},
+      userId: ''
     }
   },
   components: {
@@ -23,8 +24,9 @@ export default {
   },
   created() {
     getUserInfo(this.$route.query.id).then((v) => {
-      console.log(v)
+      console.log('vvv', v)
       this.userInfo = v.data
+      this.userId = this.userInfo.user.userId
     })
   },
 }

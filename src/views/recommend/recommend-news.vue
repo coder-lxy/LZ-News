@@ -55,6 +55,9 @@ export default {
       let scrollHeight = e.target.documentElement.scrollHeight;
       if (scrollTop + clientHeight === scrollHeight - 1) {
         this.getRec()
+        // setTimeout(function () {
+        //   this.getRec()
+        // }, 1000)
       }
     },
   }

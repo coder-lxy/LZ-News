@@ -8,11 +8,12 @@
       <el-form-item label="密码" prop="password">
         <el-input
           type="password"
-          show-password="true"
+          show-password
           v-model="registerForm.password"
         ></el-input>
       </el-form-item>
       <el-button @click="submitForm('registerForm')">注册</el-button>
+      <el-button @click="toLogin">返回</el-button>
     </el-form>
   </div>
 </template>
@@ -56,6 +57,11 @@ export default {
         }
       })
     },
+    toLogin() {
+      this.$router.push({
+        path: '/login'
+      })
+    }
   },
 }
 </script>

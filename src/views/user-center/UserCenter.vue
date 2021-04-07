@@ -2,7 +2,7 @@
   <div>
     <div class="main">
       <AsideProfile :userInfo="userInfo" class="left"></AsideProfile>
-      <UserManage :userId="userInfo.user.userId" class="right"></UserManage>
+      <UserManage :userId="userId" class="right"></UserManage>
     </div>
   </div>
 </template>
@@ -24,7 +24,6 @@ export default {
   },
   created() {
     getUserInfo(this.$route.query.id).then((v) => {
-      console.log('vvv', v)
       this.userInfo = v.data
       this.userId = this.userInfo.user.userId
     })
@@ -34,7 +33,7 @@ export default {
 
 <style scoped>
 .main {
-  margin-left: 78px;
+  margin-left: 268px;
 }
 .left {
   float: left;

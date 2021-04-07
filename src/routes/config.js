@@ -104,24 +104,24 @@ export default {
       name:"food",
       component:()=>import("@/views/channels/food-news.vue")
     },
-    // 用户中心 
-    {
-      path:"/user",
-      name:"user",
-      component:()=>import("@/views/user-center/UserCenter.vue")
-    },
     // 动态页
     {
       path: '/dynamic',
       name: 'dynamic',
       component: () => import('@/views/dynamic/Dynamic.vue')
     },
-    // 个人主页
-    // {
-    //   path: "/homepage",
-    //   name: "homepage",
-    //   component:()=>import("@/views/user-homepage/Homepage.vue")
-    // },
+    // 用户中心 
+    {
+      path:"/user",
+      name:"user",
+      component:()=>import("@/views/user-center/UserCenter.vue")
+    },
+    // 消息中心
+    {
+      path: "/msg",
+      name: "Msg",
+      component:()=>import("@/views/message-center/MessageCenter.vue")
+    },
     {
       path: "*", // 匹配所有路径
       name:"NotFound",

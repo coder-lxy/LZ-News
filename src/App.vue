@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :userInfo="this.$store.state.userInfo"></Header>
+    <Header></Header>
     <router-view></router-view>
   </div>
 </template>

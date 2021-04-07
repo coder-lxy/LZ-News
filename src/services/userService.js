@@ -18,13 +18,11 @@ export async function logout() {
 // 修改用户信息
 export async function updateUserInfo(data) {
   var resp = await axios.post(URL + "user/updateUserByUserId/", data)
-  // console.log(resp);
   return resp;
 }
 // 上传头像
 export async function uploadImg(formData) {
   var resp = await axios.post(URL + "user/uploadImage/", formData)
-  // console.log(resp);
   return resp;
 }
 // 获取用户信息

@@ -36,7 +36,6 @@ export default {
     // 将图片上传到服务器，返回地址替换到md中
     $imgAdd(pos, $file) {
       // alert(pos);
-      // console.log($file)
       let formData = new FormData()
 
       formData.append('file', $file)

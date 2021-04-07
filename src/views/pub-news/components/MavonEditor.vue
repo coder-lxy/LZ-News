@@ -54,7 +54,6 @@ export default {
 
     // 所有操作都会被解析重新渲染
     change(value, render) {
-      // console.log(this.content)
       // render 为 markdown 解析后的结果[html]
       this.html = render
       this.$emit('getContent', value)

@@ -59,7 +59,8 @@
             round
             size="small"
             v-if="userInfo.user.userId !== currentUserId"
-            >关注</el-button
+            @click="getFollow(userInfo.user.userId)"
+            >{{isFollow ? '取消关注':'关注'}}</el-button
           ></el-col
         >
       </el-row>
@@ -68,10 +69,12 @@
 </template>
 
 <script>
+import { isFollow, follow } from '@/services/followService.js'
 export default {
   data() {
     return {
       currentUserId: '',
+      isFollow: 0
     }
   },
   props: {
@@ -79,8 +82,7 @@ export default {
   },
   created() {
     this.currentUserId = this.$store.getters['base/userInfo'].userId
-    console.log(this.userInfo.user.userId);
-    console.log(this.currentUserId);
+    this.getFollowStatus()
   },
   methods: {
     toUserCenter(id) {
@@ -91,6 +93,24 @@ export default {
         },
       })
     },
+    // 获取关注状态
+     getFollowStatus() {
+      let resData = {}
+      resData.userId = this.currentUserId
+      resData.followUserId = this.userInfo.user.userId
+      isFollow(resData).then(v => {
+        this.isFollow = v.data.data.status
+      })
+    },
+    // 关注或取消关注
+    getFollow(id) {
+      let resData = {}
+      resData.userId = this.$store.getters['base/userInfo'].userId
+      resData.followUserId = id
+      follow(resData).then(v=> {
+        console.log(v)
+      })
+    }
   }
 }
 </script>

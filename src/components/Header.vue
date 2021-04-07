@@ -29,29 +29,6 @@
         v-if="this.$store.getters['base/token']"
       >
         <el-popover placement="bottom" width="160px" trigger="hover">
-          <!-- <el-row>
-            <el-col :span="24" align="middle" class="username">{{userInfo.username}}</el-col>
-          </el-row> -->
-          <!-- <el-row type="flex" justify="center">
-            <el-col :span="8">
-              <el-link :underline="false">
-                <el-row><el-col :span="24" align="middle">1</el-col></el-row>
-                <el-row><el-col :span="24" align="middle">粉丝</el-col></el-row>
-              </el-link>
-            </el-col>
-            <el-col :span="8">
-              <el-link :underline="false">
-                <el-row><el-col :span="24" align="middle">2</el-col></el-row>
-                <el-row><el-col :span="24" align="middle">收藏</el-col></el-row>
-              </el-link>
-            </el-col>
-            <el-col :span="8">
-              <el-link :underline="false">
-                <el-row><el-col :span="24" align="middle">3</el-col></el-row>
-                <el-row><el-col :span="24" align="middle">获赞</el-col></el-row>
-              </el-link>
-            </el-col>
-          </el-row> -->
           <el-row>
             <el-col :span="24" justify="center">
               <el-button
@@ -90,10 +67,18 @@
           <el-button type="text" style="color: #000" @click="dynamic">动态</el-button>
         </el-badge>
       </el-col>
+      <el-col :span="1" style="padding-top: 10px; margin-lefitem.countt: 20px">
+        <el-popover placement="bottom" width="120px" trigger="hover">
+          <el-row v-for="(item,index) in msgList" :key="index">
+            <el-col :span="24" justify="center">
+              <el-button type="text" style="color:#606266" @click="toMsgCenter(index)">{{item.label}}</el-button>
+              <el-badge v-if="item.count" :value="item.count"/>
+            </el-col>
+          </el-row>
+          <el-badge :is-dot="isDot" slot="reference"><el-button type="text" style="color: #000" @click="toMsgCenter">消息</el-button></el-badge>
+        </el-popover>
+      </el-col>
       <el-col :span="1" style="padding-top: 10px">
-        <el-badge is-dot>
-          <el-button type="text" style="color: #000">消息</el-button>
-        </el-badge>
       </el-col>
       <el-col :span="1" style="padding-top: 10px">
         <el-button
@@ -110,16 +95,15 @@
 <script>
 import Icon from './Icon'
 import { logout } from '@/services/userService'
+import { commentNotice, likeNotice, followNotice } from '@/services/noticeService'
 export default {
-  props: {
-    userInfo: {},
-  },
   components: {
     Icon,
   },
   data() {
     return {
-      headUrl: '',
+      headUrl: '', // 头像
+      userId: '', // 用户Id
       myMenu: [
         {
           name: '推荐',
@@ -174,11 +158,52 @@ export default {
         //   "uri": "/register"
         // },
       ],
+      msgList: [
+        {
+          label: '公告',
+          count: 0,
+        },{
+          label: '评论',
+          count: 0,
+        },{
+          label: '关注',
+          count: 0,
+        },{
+          label: '点赞',
+          count: 0,
+        }],
       activeIndex: '0',
+      commentCount: 0,  // 评论数量
+      likeCount: 0, // 点赞数量
+      noticeCount: 0, // 公告数量
+      isDot: false
     }
   },
   created() {
     this.headUrl = this.$store.getters['base/userInfo'].headUrl
+    this.userId = this.$store.getters['base/userInfo'].userId
+    // 评论通知
+    commentNotice(this.userId).then(v => {
+      if(v.data.data.count) {
+        this.msgList[1].count = v.data.data.count
+        this.isDot = true
+      }
+
+    })
+    // 点赞通知
+    likeNotice(this.userId).then(v=>{
+      if(v.data.data.count) {
+        this.msgList[3].count = v.data.data.count
+        this.isDot = true
+      }
+    })
+    // 关注通知
+    followNotice(this.userId).then(v=> {
+      if(v.data.data.count) {
+        this.msgList[2].count = v.data.data.count
+        this.isDot = true
+      }
+    })
   },
   methods: {
     handleSelect(tab, event) {
@@ -205,7 +230,15 @@ export default {
       this.$router.push({
         path: '/user',
         query: {
-          id: this.$store.getters['base/userInfo'].userId,
+          id: this.userId,
+        },
+      })
+    },
+    toMsgCenter(id) {
+      this.$router.push({
+        path: '/msg',
+        query: {
+          id: id,
         },
       })
     },
@@ -217,12 +250,12 @@ export default {
       })
         .then(() => {
           logout().then((v) => {
-            // localStorage.removeItem('token')
-            // localStorage.removeItem('userInfo')
+            localStorage.removeItem('token')
+            localStorage.removeItem('userInfo')
             this.$store.commit('base/token', '')
             this.$store.commit('base/userInfo', null)
             this.$router.push({
-              path: '/login',
+              path: '/',
             })
           })
           this.$message({
@@ -252,6 +285,7 @@ export default {
   height: 60px;
   background-color: #fff;
   overflow: hidden;
+  padding: 0 28px;
 }
 .LZ_header .el-menu {
   overflow: hidden;

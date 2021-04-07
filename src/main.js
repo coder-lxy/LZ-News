@@ -34,7 +34,6 @@ axios.interceptors.request.use(config => {
 // http response 响应拦截器
 axios.interceptors.response.use(response => {
   // 在接收响应做些什么，例如跳转到登录页
-  // console.log(response);
   if (response.data.code == -1) {
     router.push({
       path: '/login'
@@ -44,6 +43,7 @@ axios.interceptors.response.use(response => {
   if (token) {
     let userInfo = response.data.data
     //如果请求时TOKEN存在,就为每次请求的headers中设置好TOKEN,后台根据headers中的TOKEN判断是否放行 
+    localStorage.setItem('token', token)
     store.commit('base/token', token);
     store.commit('base/userInfo', userInfo)
   }

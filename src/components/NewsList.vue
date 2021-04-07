@@ -38,6 +38,7 @@
                 :class="{ active: item.isLike === 1 }"
               >
                 <Icon type="like"></Icon>
+                
                 {{ item.likeCount }}
               </el-link>
             </el-col>
@@ -92,16 +93,13 @@ export default {
       })
     },
     changeLike(id, index) {
-      // console.log(this.blogList[index]);
       // this.isLike[index]=true;
       like(id).then((v) => {
         // if(v.data.isLike===1)
-        this.newsList[index].likeCount = v.data.likeCount
-        this.newsList[index].isLike = v.data.isLike
+        this.newsList[index].likeCount = v.data.data.likeCount
+        this.newsList[index].isLike = v.data.data.isLike
         // likeMsg()
-        console.log(v)
       })
-      console.log(this.blogList[index].likeCount)
       // this.likeCount=this.blogList[index].likeCount
     },
     toUserCenter(id) {

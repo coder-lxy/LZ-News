@@ -3,7 +3,6 @@
     <div class="main">
       <el-backtop></el-backtop>
       <DynamicList :dynamicList= "newsList"></DynamicList>
-      <!-- <newsList :newsList="newsList"></newsList> -->
       <Loading v-show="isLoading"></Loading>
     </div>
   </div>
@@ -23,6 +22,7 @@ export default {
       newsList: [],
       requestData: {
         page: 1,
+        limit: 10
       },
       isLoading: false,
     }
@@ -36,7 +36,7 @@ export default {
   methods: {
     getList() {
       this.isLoading = true;
-      getFollow(this.requestData.page).then((v) => {
+      getFollow(this.requestData).then((v) => {
         if(v.data.data.length===0) {
           this.$message('已经到底啦！')
         } else {
@@ -50,7 +50,6 @@ export default {
       let scrollTop = e.target.documentElement.scrollTop;
       let clientHeight = e.target.documentElement.clientHeight;
       let scrollHeight = e.target.documentElement.scrollHeight;
-      // console.log(scrollTop + clientHeight-scrollHeight);
       if (scrollTop + clientHeight - scrollHeight > -1) {
         this.getList()
       }

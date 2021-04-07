@@ -54,7 +54,8 @@
 
 <script>
 import Icon from './Icon'
-import { collect, like } from '@/services/newsService'
+import { like } from '@/services/newsService'
+import { collect } from '@/services/collectService'
 export default {
   props: {
     news: {},
@@ -65,8 +66,8 @@ export default {
   methods: {
     changeLike(id) {
       like(id).then((v) => {
-        this.news.likeCount = v.data.likeCount
-        this.news.isLike = v.data.isLike
+        this.news.likeCount = v.data.data.likeCount
+        this.news.isLike = v.data.data.isLike
       })
     },
     toUserCenter(id) {

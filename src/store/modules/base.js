@@ -20,7 +20,6 @@ export default {
     // 改变state
     [BASE.TOKEN] (state, payload) {
       state.token = payload
-      window.localStorage.setItem('token', payload)
     },
     [BASE.USER_INFO] (state, payload) {
       state.userInfo = payload

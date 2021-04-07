@@ -8,7 +8,7 @@
       <el-form-item label="密码" prop="password">
         <el-input
           type="password"
-          show-password="true"
+          show-password
           v-model="loginForm.password"
         ></el-input>
       </el-form-item>
@@ -47,9 +47,17 @@ export default {
               var startTime = Date.now()
               localStorage.setItem('startTime', startTime)
               this.$store.commit('base/userInfo', v.data.data)
-              // console.log(startTime);
+              this.$message({
+                message:'登录成功',
+                type: 'success'
+              })
               this.$router.push({
                 path: '/',
+              })
+            } else {
+              this.$message({
+                message: v.data.errorMessage,
+                type: 'error'
               })
             }
           })

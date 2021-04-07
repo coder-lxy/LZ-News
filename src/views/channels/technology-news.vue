@@ -52,7 +52,6 @@ export default {
       let scrollTop = e.target.documentElement.scrollTop;
       let clientHeight = e.target.documentElement.clientHeight;
       let scrollHeight = e.target.documentElement.scrollHeight;
-      // console.log(scrollTop + clientHeight-scrollHeight);
       if (scrollTop + clientHeight - scrollHeight > -1) {
         this.getList()
       }

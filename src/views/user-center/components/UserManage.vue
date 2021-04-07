@@ -1,11 +1,11 @@
 <template>
   <div class="user_manage">
-    <el-tabs :tab-position="tabPosition">
-       <el-tab-pane v-if="userId===currentUserId" label="个人资料"><UserInfo :userId="userId"></UserInfo></el-tab-pane>
-      <el-tab-pane label="文章管理"><MyNews :userId="userId"></MyNews></el-tab-pane>
-      <el-tab-pane label="我的关注"><MyFollow /></el-tab-pane>
-      <el-tab-pane label="我的粉丝"><MyFans /></el-tab-pane>
-      <el-tab-pane label="我的收藏"><MyCollect :userId="userId"></MyCollect></el-tab-pane>
+    <el-tabs :tab-position="tabPosition" v-model="activeName">
+       <el-tab-pane v-if="userId===currentUserId"  name="first" label="个人资料"><UserInfo :userId="userId"></UserInfo></el-tab-pane>
+      <el-tab-pane label="文章管理" name="first1" lazy><MyNews :userId="userId"></MyNews></el-tab-pane>
+      <el-tab-pane label="我的关注" name="second" lazy><MyFollow :userId="userId"></MyFollow></el-tab-pane>
+      <el-tab-pane label="我的粉丝" name="sdf" lazy><MyFans :userId="userId"></MyFans></el-tab-pane>
+      <el-tab-pane label="我的收藏" name="fisarst" lazy><MyCollect :userId="userId"></MyCollect></el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -29,7 +29,8 @@ export default {
   data() {
     return {
       tabPosition: 'top',
-      currentUserId: ''
+      currentUserId: '',
+      activeName: 'first'
     }
   },
   created() {

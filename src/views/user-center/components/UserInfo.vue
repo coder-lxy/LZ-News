@@ -108,14 +108,13 @@ export default {
   },
   created() {
     this.getUser()
-    this.editUser = this.user
-    console.log(this.user);
   },
   methods: {
     // 获取用户信息
     getUser() {
       getUserInfo(this.userId).then((v) => {
         this.user = v.data.user
+        this.editUser = this.user
         // this.$store.commit('base/userInfo', v.data)
       })
     },

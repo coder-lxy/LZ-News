@@ -11,7 +11,7 @@
         </el-link>
       </el-col>
       <el-col :span="2" :offset="16">
-        <el-button round size="small" @click="getFollow(item.userId)">{{item.status? '取消关注' : '关注'}}</el-button>
+        <el-button round size="small" @click="getFollow(item.userId, index)">{{item.status? '取消关注' : '关注'}}</el-button>
       </el-col>
     </el-row>
     </div>
@@ -56,11 +56,12 @@ export default {
       })
     },
     // 关注或取消关注
-    getFollow(id) {
+    getFollow(id, index) {
       let resData = {}
       resData.userId = this.$store.getters['base/userInfo'].userId
       resData.followUserId = id
       follow(resData).then(v => {
+        this.fansList[index].status = v.data.data.status
         console.log('粉丝', v)
       })
     }

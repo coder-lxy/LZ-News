@@ -26,7 +26,7 @@ export default {
       name:"Details",
       component:()=>import("@/views/details/Details.vue")
     },
-    // 发布·
+    // 发布
     {
       path:"/pub",
       name:"PubNews",
@@ -121,6 +121,12 @@ export default {
       path: "/msg",
       name: "Msg",
       component:()=>import("@/views/message-center/MessageCenter.vue")
+    },
+    // 搜索文章
+    {
+      path: "/search",
+      name: "Search",
+      component:()=>import("@/views/search/SearchNews.vue")
     },
     {
       path: "*", // 匹配所有路径

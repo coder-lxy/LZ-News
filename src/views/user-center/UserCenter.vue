@@ -23,9 +23,9 @@ export default {
     UserManage,
   },
   created() {
-    getUserInfo(this.$route.query.id).then((v) => {
+    this.userId = this.$route.query.id
+    getUserInfo(this.userId).then((v) => {
       this.userInfo = v.data
-      this.userId = this.userInfo.user.userId
     })
   },
 }

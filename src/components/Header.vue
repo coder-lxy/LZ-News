@@ -16,7 +16,7 @@
         </el-menu>
       </el-col>
       <el-col :span="4" style="padding-top: 10px">
-        <el-input placeholder="请输入内容">
+        <el-input placeholder="请输入内容" v-model="searchWord" @change="search">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
       </el-col>
@@ -104,6 +104,7 @@ export default {
     return {
       headUrl: '', // 头像
       userId: '', // 用户Id
+      searchWord: '', // 搜索关键字
       myMenu: [
         {
           name: '推荐',
@@ -180,7 +181,6 @@ export default {
     }
   },
   created() {
-    this.headUrl = this.$store.getters['base/userInfo'].headUrl
     this.userId = this.$store.getters['base/userInfo'].userId
     // 评论通知
     commentNotice(this.userId).then(v => {
@@ -205,21 +205,27 @@ export default {
       }
     })
   },
+  updated() {
+    this.headUrl = this.$store.getters['base/userInfo'].headUrl
+  },
   methods: {
     handleSelect(tab, event) {
     },
-    // changeIndex(index) {
-    //   this.currentIndex = index;
-    //   this.$store.commit("changeBlogListIndex", index);
-    //   this.$router.push({
-    //     path: "/recommend",
-    //   });
-    // },
     toLoginPage() {
       this.$router.push({
         path: '/login',
         // query:''
       })
+    },
+    // 搜索
+    search(value) {
+      this.$router.push({
+        path: '/search',
+        query: {
+          str: value
+        }
+      })
+      console.log(value)
     },
     toWrite() {
       this.$router.push({

@@ -26,7 +26,4 @@ export default {
       window.localStorage.setItem('userInfo', JSON.stringify(payload))
     }
   },
-  actions: {
-
-  }
 }

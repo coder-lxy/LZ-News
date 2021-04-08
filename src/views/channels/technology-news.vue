@@ -40,7 +40,7 @@ export default {
       this.isLoading = true;
       getNewsList(this.requestData).then((v) => {
         if(v.data.data.length===0) {
-          this.$message('暂无内容！')
+          // this.$message('暂无内容！')
         } else {
           this.newsList = this.newsList.concat(v.data.data);
           this.requestData.page++;

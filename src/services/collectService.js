@@ -1,8 +1,8 @@
 import axios from "axios";
 import { URL } from "./config";
 // 收藏文章
-export async function collect(arg1, arg2) {
-  var resp = await axios.get(URL + 'collect/add/' + arg1 +'/' + arg2) 
+export async function collect(data) {
+  var resp = await axios.post(URL + 'collect/addCollect/', data) 
     return resp
 }
 // 获取收藏的文章

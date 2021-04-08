@@ -79,8 +79,11 @@ export default {
       })
     },
     // 收藏文章
-    toCollect(arg) {
-      collect(this.$store.getters['base/userInfo'].userId, arg).then(v => {
+    toCollect(id) {
+      let resData = {}
+      resData.userId = this.$store.getters['base/userInfo'].userId
+      resData.blogId = id
+      collect(resData).then(v => {
         console.log(v);
       })
     }

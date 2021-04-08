@@ -15,7 +15,7 @@
 <script>
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-// import { uploadEditorImg } from '../services/blogService';
+import { uploadEditorImg } from '@/services/fileService';
 export default {
   props: {
     content: '',
@@ -37,7 +37,6 @@ export default {
     $imgAdd(pos, $file) {
       // alert(pos);
       let formData = new FormData()
-
       formData.append('file', $file)
       uploadEditorImg(formData).then((v) => {
         this.$refs.md.$img2Url(pos, v.data.msg)

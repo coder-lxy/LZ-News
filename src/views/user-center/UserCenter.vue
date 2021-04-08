@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 .main {
-  margin-left: 268px;
+  margin-left: 108px;
 }
 .left {
   float: left;

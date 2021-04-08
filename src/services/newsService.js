@@ -75,11 +75,6 @@ export async function renewal() {
   return resp;
 }
 
-// 上传文章内图片
-export async function uploadEditorImg(formData) {
-  var resp = await axios.post(URL + "uploadeditorimage/", formData)
-  return resp;
-}
 export async function getClassify(id) {
   var resp = await axios.post(URL + "gettype/" + id)
   return resp;

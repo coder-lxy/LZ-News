@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="24">
           <div class="user-img">
-            <img :src="user.headUrl" />
+            <img :src="headUrl" />
             <span>上传头像</span>
             <input type="file" class="modify-img" @change="uploadFile($event)" />
         </div>
@@ -94,7 +94,8 @@
 </template>
 
 <script>
-import { updateUserInfo, getUserInfo, uploadImg } from "@/services/userService";
+import { updateUserInfo, getUserInfo } from "@/services/userService";
+import { uploadImg } from "@/services/fileService";
 export default {
   props: {
     userId: ''
@@ -103,7 +104,8 @@ export default {
     return {
       user: {},
       isEdit: false,
-      editUser: {}
+      editUser: {},
+      headUrl: '' // 头像
     };
   },
   created() {
@@ -115,16 +117,17 @@ export default {
       getUserInfo(this.userId).then((v) => {
         this.user = v.data.user
         this.editUser = this.user
+        this.headUrl = this.user.headUrl
         // this.$store.commit('base/userInfo', v.data)
       })
     },
-    //上传图片
+    //上传头像
     uploadFile(event) {
       var file = event.target.files[0]; //获取input的图片file值
       var formData = new FormData(); // 创建form对象
       formData.append("file", file); //对应后台接收图片名
       uploadImg(formData).then((v) => {
-        // this.imgUrl = v.data.msg;
+        this.headUrl = v.data.data.headUrl;
         this.resetUser()
       });
     },

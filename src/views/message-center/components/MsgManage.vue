@@ -1,10 +1,10 @@
 <template>
   <div class="user_manage">
     <el-tabs tab-position="left" v-model="activeName">
-      <el-tab-pane label="公告" name="gonggao"><NoticeMsg :userId="userId"></NoticeMsg></el-tab-pane>
-      <el-tab-pane label="评论" name="pinglun"><CommentMsg :userId="userId"></CommentMsg></el-tab-pane>
-      <el-tab-pane label="关注" name="guanzhu"><FollowMsg :userId="userId"></FollowMsg></el-tab-pane>
-      <el-tab-pane label="点赞" name="dianzan"><LikeMsg :userId="userId"></LikeMsg></el-tab-pane>
+      <el-tab-pane label="公告" name="gonggao" lazy><NoticeMsg :userId="userId"></NoticeMsg></el-tab-pane>
+      <el-tab-pane label="评论" name="pinglun" lazy><CommentMsg :userId="userId"></CommentMsg></el-tab-pane>
+      <el-tab-pane label="关注" name="guanzhu" lazy><FollowMsg :userId="userId"></FollowMsg></el-tab-pane>
+      <el-tab-pane label="点赞" name="dianzan" lazy><LikeMsg :userId="userId"></LikeMsg></el-tab-pane>
     </el-tabs>
   </div>
 </template>

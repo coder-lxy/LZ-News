@@ -219,6 +219,7 @@ export default {
     },
     // 搜索
     search(value) {
+      // this.$store.commit(['base/searchKey'], value);
       this.$router.push({
         path: '/search',
         query: {

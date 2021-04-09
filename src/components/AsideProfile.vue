@@ -108,7 +108,7 @@ export default {
       resData.userId = this.$store.getters['base/userInfo'].userId
       resData.followUserId = id
       follow(resData).then(v=> {
-        console.log(v)
+        this.isFollow = v.data.data.status
       })
     }
   }

@@ -32,7 +32,7 @@ export default {
   created() {
     this.getList()
   },
-   mounted() {
+  mounted() {
     window.addEventListener("scroll", this.handleScroll, true);
   },
   methods: {

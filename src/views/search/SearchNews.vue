@@ -30,6 +30,14 @@ export default {
       isLoading: false,
     }
   },
+  watch: {
+    $route(to, from) {
+      this.requestData.title = this.$route.query.str
+      this.requestData.page = 1
+      this.newsList = []
+      this.getSearch()
+    }
+  },
   created() {
     this.requestData.title = this.$route.query.str
     this.getSearch()
@@ -44,8 +52,8 @@ export default {
         if(v.data.data.length===0) {
           this.$message('没有搜到相关内容！')
         } else {
-          this.newsList = this.newsList.concat(v.data.data);
-          this.requestData.page++;
+          this.newsList = this.newsList.concat(v.data.data)
+          this.requestData.page++
         }
         this.isLoading = false;
       });

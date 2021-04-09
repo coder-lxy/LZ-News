@@ -4,7 +4,7 @@
       <div class="list-item" v-for="item in collectList" :key="item.blogId">
         <el-row>
           <el-col :span="20">
-            <el-link :unserLine="false" @click="toDetail(item.blogId)">{{item.title}}</el-link>
+            <el-link :unserLine="false" @click="toDetail(item.blogId, item.userId)">{{item.title}}</el-link>
           </el-col>
           <el-col :span="2" class="icon">
             <Icon type="collect"></Icon>
@@ -39,16 +39,16 @@ export default {
     })
   },
   methods: {
-    toDetail(id) {
+    toDetail(BlogId, userId) {
       this.$router.push({
         path: '/detail',
         query: {
-          id: id,
+          blogId: BlogId,
+          userId: userId
         },
       })
     },
   }
-
 }
 </script>
 

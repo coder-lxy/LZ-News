@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <AsideProfile :userInfo="userInfo" class="aside" />
+    <AsideProfile :userId="userId" class="aside" />
     <div class="main">
       <News :news="news" />
-      <Comment></Comment>
+      <Comment :blogId="blogId"></Comment>
     </div>
   </div>
 </template>
@@ -11,15 +11,15 @@
 <script>
 import News from '@/components/News'
 import { getNews, getComment } from '@/services/newsService'
-import { getUserInfo } from '@/services/userService'
+// import { getUserInfo } from '@/services/userService'
 import AsideProfile from '@/components/AsideProfile'
 import Comment from '@/components/Comment'
 export default {
   data() {
     return {
       news: {},
-      // userId: "",
-      userInfo: {},
+      userId: '',
+      blogId: ''
     }
   },
   components: {
@@ -28,11 +28,10 @@ export default {
     Comment,
   },
   created() {
-    getNews(this.$route.query.id).then((v) => {
+    this.userId = this.$route.query.userId
+    this.blogId = this.$route.query.blogId
+    getNews(this.blogId).then((v) => {
       this.news = v.data
-      getUserInfo(this.news.userId).then((v) => {
-        this.userInfo = v.data
-      })
     })
   },
 }

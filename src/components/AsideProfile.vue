@@ -1,6 +1,7 @@
 <template>
   <div class="aside-box">
-    <el-row class="head" type="flex" justify="center" align="middle">
+    <div class="aside-box-info" v-if="userInfo">
+      <el-row class="head" type="flex" justify="center" align="middle">
       <el-col :span="4">
         <el-avatar size="large" :src="userInfo.user.headUrl"></el-avatar>
       </el-col>
@@ -65,26 +66,42 @@
         >
       </el-row>
     </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { isFollow, follow } from '@/services/followService.js'
+import { getUserInfo } from '@/services/userService'
+
 export default {
   data() {
     return {
       currentUserId: '',
-      isFollow: 0
+      isFollow: 0,
+      userInfo: null
     }
   },
   props: {
-    userInfo: {},
+    userId: ''
   },
   created() {
     this.currentUserId = this.$store.getters['base/userInfo'].userId
-    this.getFollowStatus()
+    this.getUser()
+  },
+  watch: {
+    $route(to, from) {
+      this.getUser()
+    }
   },
   methods: {
+    getUser() {
+      getUserInfo(this.userId).then(v=>{
+        this.userInfo = v.data
+        console.log(this.userInfo)
+        this.getFollowStatus()
+      })
+    },
     toUserCenter(id) {
       this.$router.push({
         path: '/user',

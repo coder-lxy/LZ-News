@@ -22,7 +22,7 @@
       </el-row>
       <div class="info-box">
         <div class="show-box" v-show="!isEdit">
-          <el-button type="text" class="edit" @click="Edit">编辑</el-button>
+          <el-button v-if="userId == currentUserId" type="text" class="edit" @click="Edit">编辑</el-button>
           <el-row>
             <el-col :span="4">用户昵称</el-col>
             <el-col :span="4">{{user.username}}</el-col>
@@ -105,10 +105,15 @@ export default {
       user: {},
       isEdit: false,
       editUser: {},
-      headUrl: '' // 头像
+      headUrl: '', // 头像
+      currentUserId: '' //当前登录的用户Id
     };
   },
   created() {
+    this.currentUserId = this.$store.getters['base/userInfo'].userId
+    console.log('currentUserId', this.currentUserId);
+    console.log('userId', this.userId);
+    console.log(this.currentUserId === this.userId);
     this.getUser()
   },
   methods: {
@@ -221,8 +226,6 @@ export default {
   color: #555666;
   font-size: 16px;
   padding-right: 24px;
-}
-.user-info .user-info-base .title {
 }
 .user-info .user-info-base .el-row {
   margin-bottom: 20px;

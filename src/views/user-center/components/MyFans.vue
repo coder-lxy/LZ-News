@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { isFollow, follow, getFansList } from '@/services/followService.js'
+import { follow, getFansList } from '@/services/followService.js'
 export default {
   data() {
     return {
@@ -34,27 +34,10 @@ export default {
   },
   created() {
     getFansList(this.userId).then(v=>{
-      var list = v.data.data
-      list.forEach((element, index) => {
-        this.fansList.push(element)
-        var status = this.getFollowStatus(element.userId)
-        status.then(v=> {
-          this.fansList[index].status = v
-        })
-      });
+      this.fansList = v.data.data
     })
-    console.log('fansList', this.fansList)
   },
    methods: {
-    // 获取关注状态
-    getFollowStatus(id) {
-      let resData = {}
-      resData.userId = this.$store.getters['base/userInfo'].userId
-      resData.followUserId = id
-      return isFollow(resData).then(v => {
-        return v.data.data.status
-      })
-    },
     // 关注或取消关注
     getFollow(id, index) {
       let resData = {}

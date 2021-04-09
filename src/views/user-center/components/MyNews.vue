@@ -24,7 +24,7 @@
     <el-row v-for="(item, index) in newsList" :key="index" class="list_item">
       <el-row class="title">
         <el-col :span="24">
-          <el-link :underline="false" @click="toDetail(item.blogId)">{{
+          <el-link :underline="false" @click="toDetail(item.blogId, item.userId)">{{
             item.title
           }}</el-link>
         </el-col>
@@ -107,11 +107,12 @@ export default {
         this.newsList = v.data.data
       })
     },
-    toDetail(id) {
+    toDetail(BlogId, userId) {
       this.$router.push({
         path: '/detail',
         query: {
-          id: id,
+          blogId: BlogId,
+          userId: userId
         },
       })
     },

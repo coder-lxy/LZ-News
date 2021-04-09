@@ -37,7 +37,7 @@
                 <span class="new-comment">{{ item.content }}</span>
                 <span class="date">{{ item.createDate }}</span>
                 <span class="btn-reply" @click="reply(index, item.commentId)">回复</span>
-                <span class="btn-reply" v-if="item.userId===currentUser" @click="toDelComment(item.commentId)">删除</span>
+                <span class="btn-reply" v-if="item.userId===currentUserId" @click="toDelComment(item.commentId)">删除</span>
               </div>
             </div>
           </li>
@@ -68,7 +68,7 @@
                     <span class="btn-reply" @click="reply(index, i.commentId)"
                       >回复
                     </span>
-                    <span class="btn-reply" v-show="i.userId===currentUser" @click="toDelComment(i.commentId)"
+                    <span class="btn-reply" v-show="i.userId===currentUserId" @click="toDelComment(i.commentId)"
                       >删除
                     </span>
                   </div>
@@ -105,7 +105,7 @@ import { getComment, pubComment, delComment } from '@/services/newsService'
 export default {
   data() {
     return {
-      currentUser: '',
+      currentUserId: '',
       comments: {},
       comment: {
         commentId: '',
@@ -124,20 +124,24 @@ export default {
       currentIndex: -1,
     }
   },
+  props: {
+    blogId: ''
+  },
   created() {
-    this.currentUser = this.$store.getters['base/userInfo'].userId // 通过当前用户控制删除评论按钮显示
+    this.currentUserId = this.$store.getters['base/userInfo'].userId // 通过当前用户控制删除评论按钮显示
     this.initComment()
   },
   methods: {
     // 获取评论
     initComment() {
-      this.commentData.blogId = this.$route.query.id
+      this.commentData.blogId = this.blogId
       getComment(this.commentData).then((v) => {
         this.comments = v.data.data
       })
     },
     toPubComment() {
-      this.comment.blogId = this.$route.query.id
+      this.comment.blogId = this.blogId
+      this.comment.userId = this.currentUserId
       pubComment(this.comment).then((v) => {
         this.initComment()
         this.comment.content = ''

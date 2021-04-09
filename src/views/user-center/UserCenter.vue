@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main">
-      <AsideProfile :userInfo="userInfo" class="left"></AsideProfile>
+      <AsideProfile :userId="userId" class="left"></AsideProfile>
       <UserManage :userId="userId" class="right"></UserManage>
     </div>
   </div>
@@ -10,11 +10,11 @@
 <script>
 import AsideProfile from '@/components/AsideProfile'
 import UserManage from './components/UserManage.vue'
-import { getUserInfo } from '@/services/userService.js'
+// import { getUserInfo } from '@/services/userService.js'
 export default {
   data() {
     return {
-      userInfo: {},
+      // userInfo: {},
       userId: ''
     }
   },
@@ -24,9 +24,9 @@ export default {
   },
   created() {
     this.userId = this.$route.query.id
-    getUserInfo(this.userId).then((v) => {
-      this.userInfo = v.data
-    })
+    // getUserInfo(this.userId).then((v) => {
+    //   this.userInfo = v.data
+    // })
   },
 }
 </script>

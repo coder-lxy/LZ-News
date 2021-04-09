@@ -11,7 +11,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="24"><h2 @click="toDetail(item.blogId)">{{item.title}}</h2></el-col>
+        <el-col :span="24"><h2 @click="toDetail(item.blogId, item.userId)">{{item.title}}</h2></el-col>
       </el-row>
       <el-row>
         <el-col :span="24" class="summary">{{item.summary}}</el-col>
@@ -39,11 +39,12 @@ export default {
         },
       })
     },
-    toDetail(id) {
+    toDetail(BlogId, userId) {
       this.$router.push({
         path: '/detail',
         query: {
-          id: id,
+          blogId: BlogId,
+          userId: userId
         },
       })
     },

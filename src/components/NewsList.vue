@@ -6,11 +6,11 @@
       :key="index"
     >
       <el-aside width="220px">
-        <img :src="item.headUrl" alt="" />
+        <img :src="item.blogUrl" alt="" />
       </el-aside>
       <el-container>
         <el-header height="50px">
-          <el-link :underline="false" @click="toDetail(item.blogId)">
+          <el-link :underline="false" @click="toDetail(item.blogId, item.userId)">
             <h3>{{ item.title }}</h3>
           </el-link>
         </el-header>
@@ -84,11 +84,12 @@ export default {
     Icon,
   },
   methods: {
-    toDetail(id) {
+    toDetail(BlogId, userId) {
       this.$router.push({
         path: '/detail',
         query: {
-          id: id,
+          blogId: BlogId,
+          userId: userId
         },
       })
     },

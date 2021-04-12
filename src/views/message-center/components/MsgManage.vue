@@ -30,6 +30,12 @@ export default {
       tabList: ['gonggao', 'pinglun', 'guanzhu', 'dianzan']
     }
   },
+  watch: {
+    activeIndex(val, oldVal) {//普通的watch监听
+      this.activeIndex = val
+      this.activeName = this.tabList[val]
+    }
+  },
   created() {
     this.userId = this.$store.getters['base/userInfo'].userId
     this.activeName = this.tabList[this.activeIndex]

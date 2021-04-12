@@ -6,7 +6,7 @@
         <el-link
           :underline="false"
           :class="{ active: activeIndex === 0 }"
-          @click="getNewsList('createDate')"
+          @click="getNewsList(0)"
         >
           按最后发布时间
         </el-link>
@@ -15,7 +15,7 @@
         <el-link
           :underline="false"
           :class="{ active: activeIndex === 1 }"
-          @click="getNewsList('hitCount')"
+          @click="getNewsList(1)"
         >
           按访问量
         </el-link>
@@ -49,7 +49,7 @@
         <el-col :span="2" :offset="6">
           <el-button
             type="text"
-            v-if="userId === currentUserId"
+            v-if="userId == currentUserId"
             @click="editNews(item.blogId)"
             >编辑</el-button
           >
@@ -57,8 +57,8 @@
         <el-col :span="2">
           <el-button
             type="text"
-            v-if="userId === currentUserId"
-            @click="deleteNews(item.blogId)"
+            v-if="userId == currentUserId"
+            @click="toDeleteNews(item.blogId)"
             >删除</el-button
           >
         </el-col>
@@ -70,12 +70,13 @@
 <script>
 import Icon from '@/components/Icon'
 import { getUserNewsList } from '@/services/newsService.js'
+import { deleteNews } from '../../../services/newsService'
 export default {
   data() {
     return {
       newsList: [],
       requestData: {
-        page: 1,
+        page: 0,
         limit: 10,
         id: 0,
         sortName: 'createDate',
@@ -92,19 +93,22 @@ export default {
   created() {
     this.currentUserId = this.$store.getters['base/userInfo'].userId
     this.requestData.id = this.userId
-    this.getNewsList('createDate')
+    this.getNewsList(this.activeIndex)
   },
+  // mounted() {
+  //   window.addEventListener("scroll", this.handleScroll, true);
+  // },
   methods: {
-    getNewsList(sortName) {
-      if (sortName === 'createDate') {
-        this.requestData.sortName = 'createDate'
-        this.activeIndex = 0
-      } else {
-        this.requestData.sortName = 'hitCount'
-        this.activeIndex = 1
-      }
+    getNewsList(index) {
+      this.activeIndex = index
+      this.requestData.sortName = this.activeIndex ? 'hitCount':'createDate'
       getUserNewsList(this.requestData).then((v) => {
         this.newsList = v.data.data
+        // if(v.data.data.length === 0) {
+        // } else {
+        //   this.newsList = this.newsList.concat(v.data.data)
+        //   this.requestData.page++
+        // }
       })
     },
     toDetail(BlogId, userId) {
@@ -124,6 +128,37 @@ export default {
         },
       })
     },
+    // handleScroll(e) {
+    //   let scrollTop = e.target.documentElement.scrollTop;
+    //   let clientHeight = e.target.documentElement.clientHeight;
+    //   let scrollHeight = e.target.documentElement.scrollHeight;
+    //   if (scrollTop + clientHeight === scrollHeight - 1) {
+    //     this.getNewsList(this.activeIndex)
+    //   }
+    // },
+    toDeleteNews(id) {
+      this.$confirm('确定要删除这篇文章吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          deleteNews(id).then(v=>{
+            this.getNewsList(this.activeIndex)
+          })
+          this.$message({
+            type: 'success',
+            message: '已删除!',
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除！',
+          })
+        })
+      
+    }
   },
 }
 </script>

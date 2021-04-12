@@ -94,8 +94,20 @@ export default {
     },
     handleInputConfirm() {
       let inputValue = this.inputValue
-      if (inputValue) {
-        this.dynamicTags.push(inputValue)
+      if (inputValue && this.dynamicTags.findIndex(inputValue)===-1) {
+        if(this.dynamicTags.length>=5) {
+          this.$message({
+            message: '最多只能添加5个标签！',
+            type: 'warning'
+          }) 
+        } else if(this.dynamicTags.indexOf(inputValue)!==-1) {
+          this.$message({
+            message: '标签已存在！',
+            type: 'warning'
+          }) 
+        } else {
+          this.dynamicTags.push(inputValue)
+        }
       }
       this.inputVisible = false
       this.inputValue = ''

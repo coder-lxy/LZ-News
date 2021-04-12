@@ -22,6 +22,11 @@ export default {
   created() {
     this.activeIndex = this.$route.query.id
   },
+  watch: {
+    $route(to, from) {
+     this.activeIndex = this.$route.query.id
+    }
+  }
 }
 </script>
 

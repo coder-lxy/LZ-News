@@ -5,6 +5,11 @@ export async function publish(data) {
   var resp = await axios.post(URL + "user/publish/", data)
   return resp;
 }
+// 删除新闻
+export async function deleteNews(id) {
+  var resp = await axios.get(URL + "user/deleteBlogById?blogId="+ id)
+  return resp;
+}
 // 编辑新闻
 export async function updateNews(data) {
   var resp = await axios.post(URL + "user/update/", data)

@@ -57,18 +57,18 @@
           ></el-avatar>
         </el-popover>
       </el-col>
-      <el-col :span="1" style="padding-top: 10px; margin-left: 18px">
+      <!-- <el-col :span="1" style="padding-top: 10px; margin-left: 18px">
         <el-badge>
           <el-button type="text" style="color: #000">收藏</el-button>
         </el-badge>
-      </el-col>
+      </el-col> -->
       <el-col :span="1" style="padding-top: 10px">
         <el-badge>
           <el-button type="text" style="color: #000" @click="dynamic">动态</el-button>
         </el-badge>
       </el-col>
       <el-col :span="1" style="padding-top: 10px; margin-lefitem.countt: 20px">
-        <el-popover placement="bottom" width="120px" trigger="hover">
+        <el-popover placement="bottom" trigger="hover">
           <el-row v-for="(item,index) in msgList" :key="index">
             <el-col :span="24" justify="center">
               <el-button type="text" style="color:#606266" @click="toMsgCenter(index)">{{item.label}}</el-button>
@@ -188,19 +188,18 @@ export default {
         this.msgList[1].count = v.data.data.count
         this.isDot = true
       }
-
-    })
-    // 点赞通知
-    likeNotice(this.userId).then(v=>{
-      if(v.data.data.count) {
-        this.msgList[3].count = v.data.data.count
-        this.isDot = true
-      }
     })
     // 关注通知
     followNotice(this.userId).then(v=> {
       if(v.data.data.count) {
         this.msgList[2].count = v.data.data.count
+        this.isDot = true
+      }
+    })
+    // 点赞通知
+    likeNotice(this.userId).then(v=>{
+      if(v.data.data.count) {
+        this.msgList[3].count = v.data.data.count
         this.isDot = true
       }
     })

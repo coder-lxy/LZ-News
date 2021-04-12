@@ -10,11 +10,9 @@
 <script>
 import AsideProfile from '@/components/AsideProfile'
 import UserManage from './components/UserManage.vue'
-// import { getUserInfo } from '@/services/userService.js'
 export default {
   data() {
     return {
-      // userInfo: {},
       userId: ''
     }
   },
@@ -24,9 +22,11 @@ export default {
   },
   created() {
     this.userId = this.$route.query.id
-    // getUserInfo(this.userId).then((v) => {
-    //   this.userInfo = v.data
-    // })
+  },
+  watch: {
+    $route(to, from) {
+     this.userId = this.$route.query.id
+    }
   },
 }
 </script>

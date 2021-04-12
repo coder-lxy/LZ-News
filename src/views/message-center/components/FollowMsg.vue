@@ -12,7 +12,7 @@
 </template>
 
 <script>
-// import { lookLike } from '@/services/noticeService.js'
+import { lookFollow } from '@/services/noticeService.js'
 export default {
   data() {
     return {
@@ -23,9 +23,9 @@ export default {
     userId: ''
   },
   created() {
-    // lookLike(this.userId).then(v=> {
-    //   this.msgList = v.data.data
-    // })
+    lookFollow(this.userId).then(v=> {
+      this.msgList = v.data.data
+    })
   }
 }
 </script>

@@ -10,6 +10,11 @@ export async function likeNotice(id) {
   var resp = await axios.get(URL + "msg/like?userId="+ id)
   return resp;
 }
+// 关注通知
+export async function followNotice(id) {
+  var resp = await axios.get(URL + "msg/follow?userId="+ id)
+  return resp;
+}
 // 评论详情
 export async function lookComment(id) {
   var resp = await axios.get(URL + "msg/commentDetail?userId=" + id)
@@ -20,9 +25,9 @@ export async function lookLike(id) {
   var resp = await axios.get(URL + "msg/likeDetail?userId="+ id)
   return resp;
 }
-// 关注通知
-export async function followNotice(id) {
-  var resp = await axios.get(URL + "msg/followRemind?userId="+ id)
+// 关注详情
+export async function lookFollow(id) {
+  var resp = await axios.get(URL + "msg/followDetail?userId="+ id)
   return resp;
 }
 

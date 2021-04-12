@@ -50,7 +50,7 @@
               <el-link
                 :underline="false"
                 class="footer-item"
-                @click="toDetail(item.blogId)"
+                @click="toDetail(item.blogId, item.userId)"
               >
                 <Icon type="comment"></Icon>
                 {{ item.commentCount }}

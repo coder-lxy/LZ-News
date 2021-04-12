@@ -7,7 +7,7 @@
             <el-link :unserLine="false" @click="toDetail(item.blogId, item.userId)">{{item.title}}</el-link>
           </el-col>
           <el-col :span="2" class="icon">
-            <Icon type="collect"></Icon>
+            <Icon @click="toCollect(item.blogId)" type="collect" ></Icon>
           </el-col>
         </el-row>
       </div>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { collectList } from '@/services/collectService'
+import { collectList, collect } from '@/services/collectService'
 import Icon from '@/components/Icon'
 export default {
   props: {
@@ -35,7 +35,7 @@ export default {
   },
   created() {
     collectList(this.userId).then(v => {
-      this.collectList = v.data
+      this.collectList = v.data.data
     })
   },
   methods: {
@@ -48,6 +48,17 @@ export default {
         },
       })
     },
+    // 收藏文章
+    toCollect(id) {
+      alert(11)
+      let resData = {}
+      resData.userId = this.$store.getters['base/userInfo'].userId
+      resData.blogId = id
+      collect(resData).then(v => {
+        this.isCollect = v.data.data.status
+        this.toGetCollectCount()
+      })
+    }
   }
 }
 </script>

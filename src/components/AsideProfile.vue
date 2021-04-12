@@ -98,7 +98,6 @@ export default {
     getUser() {
       getUserInfo(this.userId).then(v=>{
         this.userInfo = v.data
-        console.log(this.userInfo)
         this.getFollowStatus()
       })
     },

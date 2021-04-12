@@ -2,7 +2,7 @@
   <div class="container">
     <AsideProfile :userId="userId" class="aside" />
     <div class="main">
-      <News :news="news" />
+      <News :blogId="blogId" />
       <Comment :blogId="blogId"></Comment>
     </div>
   </div>
@@ -10,7 +10,6 @@
 
 <script>
 import News from '@/components/News'
-import { getNews, getComment } from '@/services/newsService'
 // import { getUserInfo } from '@/services/userService'
 import AsideProfile from '@/components/AsideProfile'
 import Comment from '@/components/Comment'
@@ -30,9 +29,6 @@ export default {
   created() {
     this.userId = this.$route.query.userId
     this.blogId = this.$route.query.blogId
-    getNews(this.blogId).then((v) => {
-      this.news = v.data
-    })
   },
 }
 </script>

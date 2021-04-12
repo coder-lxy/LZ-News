@@ -14,11 +14,11 @@
       <el-col :span="6">{{ news.createDate }}</el-col>
       <el-col :span="2">
         <Icon type="hit"></Icon>
-        <span class="read-count">{{ news.hitCount }}</span>
+        <span class="count">{{ news.hitCount }}</span>
       </el-col>
       <el-col :span="2">
         <Icon type="collect"></Icon>
-        <span class="read-count">{{ news.hitCount }}</span>
+        <span class="count" v-if="collectCount">{{ collectCount }}</span>
       </el-col>
     </el-row>
     <div v-html="news.article" class="article-content"></div>
@@ -31,20 +31,22 @@
             :class="{ active: news.isLike === 1 }"
           >
             <Icon type="like"></Icon>
-            <span> {{ news.isLike === 1 ? '已赞' : '点赞' }}</span
-            >{{ news.likeCount }}
+            <span> {{ news.isLike === 1 ? '已赞' : '点赞' }}</span>
+            <span class="count">{{ news.likeCount }}</span>
           </el-link>
         </el-col>
         <el-col :span="3">
           <el-link :underline="false" href="#comment">
             <Icon type="comment"></Icon>
-            <span>评论{{ news.commentCount }}</span>
+            <span>评论</span>
+            <span class="count">{{ news.commentCount }}</span>
           </el-link>
         </el-col>
         <el-col :span="3">
           <el-link :underline="false" @click="toCollect(news.blogId)" :class="{ active: isCollect === 1 }">
             <Icon type="collect"></Icon>
-            <span>收藏{{ news.collect }}</span>
+            <span>  {{ isCollect === 1 ? '已收藏' : '收藏' }}</span>
+            <span class="count">{{ collectCount }}</span>
           </el-link>
         </el-col>
       </el-row>
@@ -54,19 +56,29 @@
 
 <script>
 import Icon from './Icon'
-import { like } from '@/services/newsService'
-import { collect } from '@/services/collectService'
+import { getNews, like } from '@/services/newsService'
+// import { , getComment } from '@/services/newsService'
+
+import { collect, getCollectCount } from '@/services/collectService'
 export default {
   props: {
-    news: {},
+    blogId: {},
   },
   data() {
     return {
+      news: {},
       isCollect: 0, // 收藏状态
+      collectCount: 0 // 收藏量
     }
   },
   components: {
     Icon,
+  },
+  created() {
+    getNews(this.blogId).then((v) => {
+      this.news = v.data
+    })
+    this.toGetCollectCount()
   },
   methods: {
     changeLike(id) {
@@ -76,7 +88,7 @@ export default {
       })
     },
     // 获取收藏状态
-    
+
     toUserCenter(id) {
       this.$router.push({
         path: '/user',
@@ -85,13 +97,20 @@ export default {
         },
       })
     },
+    // 获取文章的收藏量
+    toGetCollectCount() {
+      getCollectCount(this.blogId).then(v=>{
+        this.collectCount = v.data.data.count
+      })
+    },
     // 收藏文章
     toCollect(id) {
       let resData = {}
       resData.userId = this.$store.getters['base/userInfo'].userId
       resData.blogId = id
       collect(resData).then(v => {
-        console.log(v);
+        this.isCollect = v.data.data.status
+        this.toGetCollectCount()
       })
     }
   },
@@ -142,5 +161,8 @@ export default {
 }
 .el-link.active {
   color: #ca0c16;
+}
+.count {
+  margin-left: 6px;
 }
 </style>

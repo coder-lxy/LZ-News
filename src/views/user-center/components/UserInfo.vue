@@ -111,9 +111,6 @@ export default {
   },
   created() {
     this.currentUserId = this.$store.getters['base/userInfo'].userId
-    console.log('currentUserId', this.currentUserId);
-    console.log('userId', this.userId);
-    console.log(this.currentUserId === this.userId);
     this.getUser()
   },
   methods: {

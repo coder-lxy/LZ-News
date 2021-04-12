@@ -6,7 +6,7 @@ export default {
     {
       path:"/",
       name:"Home",
-      component:()=>import("@/views/recommend/recommend-news.vue")
+      component:()=>import("@/views/hot/HotNews.vue")
     },
     // 登录
     {
@@ -127,6 +127,12 @@ export default {
       path: "/search",
       name: "Search",
       component:()=>import("@/views/search/SearchNews.vue")
+    },
+    // 发布公告
+    {
+      path: "/pub-notice",
+      name: "PubNotice",
+      component:()=>import("@/views/pub-notice/PubNotice.vue")
     },
     {
       path: "*", // 匹配所有路径

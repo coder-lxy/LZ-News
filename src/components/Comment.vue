@@ -6,19 +6,13 @@
       <form>
         <textarea
           class="comment-content"
-          v-model="comment.content"
+          v-model="commentContent"
           placeholder="评论"
           cols="30"
           rows="10"
         ></textarea>
       </form>
-      <input
-        type="button"
-        @click="toPubComment()"
-        class="btn-comment-show"
-        :class="{ active: comment.content != '' }"
-        value="评论"
-      />
+      <el-button @click="toPubComment(commentContent)" type="primary" :disabled="!commentContent" class="btn-comment-show">评论</el-button>
     </div>
     <div class="comment-list-container">
       <div class="comment-list-box">
@@ -81,18 +75,17 @@
             <form action="">
               <textarea
                 class="comment-content"
-                v-model="comment.content"
+                v-model="replyContent"
                 placeholder="回复"
                 ref="focusTextarea"
               ></textarea>
             </form>
-            <input
-              type="button"
-              @click="toPubComment()"
+            <el-button
+              type="primary"
+              @click="toPubComment(replyContent)"
+              :disabled="!replyContent"
               class="btn-comment-show"
-              :class="{ active: comment.content != '' }"
-              value="回复"
-            />
+            >回复</el-button>
           </div>
         </ul>
       </div>
@@ -107,6 +100,8 @@ export default {
     return {
       currentUserId: '',
       comments: {},
+      commentContent: '', // 评论内容
+      replyContent: '', // 回复内容
       comment: {
         commentId: '',
         content: '',
@@ -139,12 +134,14 @@ export default {
         this.comments = v.data.data
       })
     },
-    toPubComment() {
+    toPubComment(val) {
       this.comment.blogId = this.blogId
       this.comment.userId = this.currentUserId
+      this.comment.content = val
       pubComment(this.comment).then((v) => {
         this.initComment()
-        this.comment.content = ''
+        this.commentContent = ''
+        this.replyContent = ''
       })
     },
     // 删除评论
@@ -237,7 +234,7 @@ export default {
   transition: height 0.3s ease-in-out;
 }
 .comment-box .comment-edit-box .btn-comment-show {
-  width: 80px;
+  /* width: 80px;
   height: 36px;
   background-color: #ccccd7;
   border-radius: 4px;
@@ -245,9 +242,9 @@ export default {
   color: #fff;
   font-size: 14px;
   text-align: center;
-  line-height: 36px;
+  line-height: 36px; */
   margin-left: 8px;
-  border: none;
+  /* border: none; */
 }
 .comment-box .comment-edit-box form .comment-content.open {
   height: 64px;

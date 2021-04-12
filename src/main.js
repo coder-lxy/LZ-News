@@ -34,11 +34,11 @@ axios.interceptors.request.use(config => {
 // http response 响应拦截器
 axios.interceptors.response.use(response => {
   // 在接收响应做些什么，例如跳转到登录页
-  if (response.data.code == -1) {
-    router.push({
-      path: '/login'
-    })
-  }
+  // if (response.data.code == -1) {
+  //   router.push({
+  //     path: '/login'
+  //   })
+  // }
   let token = response.headers.token;
   if (token) {
     let userInfo = response.data.data

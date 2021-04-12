@@ -76,8 +76,8 @@ export default {
     return {
       newsList: [],
       requestData: {
-        page: 0,
-        limit: 10,
+        page: 1,
+        limit: 100,
         id: 0,
         sortName: 'createDate',
       },

@@ -37,16 +37,21 @@ export default {
   },
   methods: {
     getRec() {
-      this.isLoading = true;
-      getRecList(this.requestData).then((v) => {
-        if(v.data.data.length===0) {
-          // this.$message('暂无推荐内容')
-        } else {
-          this.newsList = this.newsList.concat(v.data.data);
-          this.requestData.page++;
-        }
-        this.isLoading = false;
-      });
+      let token = this.$store.getters['base/token']
+      if(token) {
+        this.isLoading = true;
+        getRecList(this.requestData).then((v) => {
+          if(v.data.data.length===0) {
+            // this.$message('暂无推荐内容')
+          } else {
+            this.newsList = this.newsList.concat(v.data.data);
+            this.requestData.page++;
+          }
+          this.isLoading = false;
+        });
+      } else {
+        this.$message('请先登录！')
+      }
     },
 
     handleScroll(e) {

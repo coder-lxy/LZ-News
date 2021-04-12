@@ -21,13 +21,12 @@
         </el-input>
       </el-col>
       <el-col :span="2" style="padding-top: 10px">
-        <el-button type="primary" plain @click="toWrite()">发布新闻</el-button>
+        <el-button type="primary" plain v-if="userType === 1" @click="toWrite()">发布新闻</el-button>
       </el-col>
-      <el-col
-        :span="1"
-        style="padding-top: 10px; margin-left: 20px"
-        v-if="this.$store.getters['base/token']"
-      >
+      <el-col :span="2" style="padding-top: 10px; margin-left: 18px">
+        <el-button type="primary" plain v-if="userType === 2" @click="pubNotice">发布公告</el-button>
+      </el-col>
+      <el-col :span="1" style="padding-top: 10px; margin-left: 20px" v-if="token">
         <el-popover placement="bottom" width="160px" trigger="hover">
           <el-row>
             <el-col :span="24" justify="center">
@@ -57,14 +56,9 @@
           ></el-avatar>
         </el-popover>
       </el-col>
-      <!-- <el-col :span="1" style="padding-top: 10px; margin-left: 18px">
-        <el-badge>
-          <el-button type="text" style="color: #000">收藏</el-button>
-        </el-badge>
-      </el-col> -->
       <el-col :span="1" style="padding-top: 10px">
         <el-badge>
-          <el-button type="text" style="color: #000" @click="dynamic">动态</el-button>
+          <el-button type="text" style="color: #000" @click="dynamic" v-if="token">动态</el-button>
         </el-badge>
       </el-col>
       <el-col :span="1" style="padding-top: 10px; margin-lefitem.countt: 20px">
@@ -75,7 +69,7 @@
               <el-badge v-if="item.count" :value="item.count"/>
             </el-col>
           </el-row>
-          <el-badge :is-dot="isDot" slot="reference"><el-button type="text" style="color: #000" @click="toMsgCenter">消息</el-button></el-badge>
+          <el-badge :is-dot="isDot" slot="reference"><el-button type="text" style="color: #000" v-if="token" @click="toMsgCenter">消息</el-button></el-badge>
         </el-popover>
       </el-col>
       <el-col :span="1" style="padding-top: 10px">
@@ -104,15 +98,17 @@ export default {
     return {
       headUrl: '', // 头像
       userId: '', // 用户Id
+      userType: 0,
+      token: '',
       searchWord: '', // 搜索关键字
       myMenu: [
         {
-          name: '推荐',
-          uri: '/',
-        },
-        {
           name: '热点',
           uri: '/hot',
+        },
+        {
+          name: '推荐',
+          uri: '/recommend',
         },
         {
           name: '科技',
@@ -182,6 +178,8 @@ export default {
   },
   created() {
     this.userId = this.$store.getters['base/userInfo'].userId
+    this.userType = this.$store.getters['base/userInfo'].userType
+    this.token = this.$store.getters['base/token']
     // 评论通知
     commentNotice(this.userId).then(v => {
       if(v.data.data.count) {
@@ -228,9 +226,13 @@ export default {
       console.log(value)
     },
     toWrite() {
-      this.$router.push({
-        path: '/pub',
-      })
+      if(this.token) {
+        this.$router.push({
+          path: '/pub',
+        })
+      }else {
+        this.$message('请先登录！')
+      }
     },
     toUserCenter() {
       this.$router.push({
@@ -280,6 +282,13 @@ export default {
       this.$router.push({
         path: '/dynamic',
       })
+    },
+    pubNotice() {
+      if(this.token) {
+        this.$router.push({
+          path: '/pub-notice'
+        })
+      }
     }
   },
 }

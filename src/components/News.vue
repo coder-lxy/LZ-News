@@ -42,7 +42,7 @@
           </el-link>
         </el-col>
         <el-col :span="3">
-          <el-link :underline="false" @click="toCollect(news.blogId)">
+          <el-link :underline="false" @click="toCollect(news.blogId)" :class="{ active: isCollect === 1 }">
             <Icon type="collect"></Icon>
             <span>收藏{{ news.collect }}</span>
           </el-link>
@@ -60,6 +60,11 @@ export default {
   props: {
     news: {},
   },
+  data() {
+    return {
+      isCollect: 0, // 收藏状态
+    }
+  },
   components: {
     Icon,
   },
@@ -70,6 +75,8 @@ export default {
         this.news.isLike = v.data.data.isLike
       })
     },
+    // 获取收藏状态
+    
     toUserCenter(id) {
       this.$router.push({
         path: '/user',

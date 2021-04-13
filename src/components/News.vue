@@ -59,7 +59,7 @@ import Icon from './Icon'
 import { getNews, like } from '@/services/newsService'
 // import { , getComment } from '@/services/newsService'
 
-import { collect, getCollectCount } from '@/services/collectService'
+import { collect, getCollectCount, isCollect } from '@/services/collectService'
 export default {
   props: {
     blogId: {},
@@ -79,6 +79,7 @@ export default {
       this.news = v.data
     })
     this.toGetCollectCount()
+    this.getCollectStatus()
   },
   methods: {
     changeLike(id) {
@@ -88,7 +89,14 @@ export default {
       })
     },
     // 获取收藏状态
-
+    getCollectStatus() {
+      let requestData = {}
+      requestData.userId = this.$store.getters['base/userInfo'].userId
+      requestData.blogId = this.blogId
+      isCollect(requestData).then(v => {
+        this.isCollect = v.data.data.status
+      })
+    },
     toUserCenter(id) {
       this.$router.push({
         path: '/user',

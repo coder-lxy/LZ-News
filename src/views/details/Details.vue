@@ -45,5 +45,6 @@ export default {
 .main {
   float: left;
   margin-top: 10px;
+  max-width: 980px;
 }
 </style>

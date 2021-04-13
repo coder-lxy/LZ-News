@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     handleClick(val) {
-      console.log(this.newArticle.article)
       this.newArticle.title = val
       this.dialogVisible = true
     },

@@ -1,13 +1,13 @@
 <template>
-  <div class="aside-box">
-    <div class="aside-box-info" v-if="userInfo">
+  <div class="aside-box" v-if="userInfo">
+    <div class="aside-box-info">
       <el-row class="head" type="flex" justify="center" align="middle">
       <el-col :span="4">
         <el-avatar size="large" :src="userInfo.user.headUrl"></el-avatar>
       </el-col>
     </el-row>
     <el-row class="name" type="flex" justify="center" align="middle">
-      <el-col :span="4">
+      <el-col :span="24">
         <span>{{userInfo.user.username }}</span>
       </el-col>
     </el-row>

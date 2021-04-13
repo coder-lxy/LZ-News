@@ -55,8 +55,7 @@
 </template>
 
 <script>
-import { publish } from '@/services/newsService.js'
-import { updateNews } from '../../../services/newsService'
+import { updateNews } from '@/services/newsService'
 export default {
   props: {
     editArticle: {},
@@ -89,7 +88,6 @@ export default {
     handleClose(tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
     },
-
     showInput() {
       this.inputVisible = true
       this.$nextTick((_) => {
@@ -111,10 +109,10 @@ export default {
           }) 
         } else {
           this.dynamicTags.push(inputValue)
+          this.inputVisible = false
+          this.inputValue = ''
         }
       }
-      this.inputVisible = false
-      this.inputValue = ''
     },
     pubNews() {
       this.editArticle.labels = this.dynamicTags

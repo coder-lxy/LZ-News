@@ -5,7 +5,6 @@ export default {
     return {
       token: '',
       userInfo: null,
-      searhKey: ''
     }
   },
   getters: {
@@ -15,9 +14,6 @@ export default {
     },
     [BASE.USER_INFO](state) {
       return state.userInfo || JSON.parse(window.localStorage.getItem('userInfo'))
-    },
-    [BASE.SEARCH_KEY](state) {
-      return state.searhKey
     }
   },
   mutations: {
@@ -28,9 +24,6 @@ export default {
     [BASE.USER_INFO] (state, payload) {
       state.userInfo = payload
       window.localStorage.setItem('userInfo', JSON.stringify(payload))
-    },
-    [BASE.SEARCH_KEY](state, payload) {
-      state.searhKey = payload
     }
   },
 }

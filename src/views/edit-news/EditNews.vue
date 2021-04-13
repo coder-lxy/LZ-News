@@ -57,12 +57,10 @@ export default {
   },
   methods: {
     handleClick(val) {
-      console.log(this.editArticle.article)
       this.editArticle.title = val
       this.dialogVisible = true
     },
     setContent(content) {
-      console.log(content);
       this.editArticle.article = content
     },
     handleClose(done) {

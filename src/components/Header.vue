@@ -76,7 +76,7 @@
       </el-col>
       <el-col :span="1" style="padding-top: 10px">
         <el-button
-          v-if="!this.$store.getters['base/token']"
+          v-if="!token"
           type="text"
           @click="toLoginPage()"
           >登录/注册</el-button
@@ -176,34 +176,34 @@ export default {
       isDot: false
     }
   },
-  created() {
-    this.userId = this.$store.getters['base/userInfo'].userId
-    this.userType = this.$store.getters['base/userInfo'].userType
-    this.token = this.$store.getters['base/token']
-    // 评论通知
-    commentNotice(this.userId).then(v => {
-      if(v.data.data.count) {
-        this.msgList[1].count = v.data.data.count
-        this.isDot = true
-      }
-    })
-    // 关注通知
-    followNotice(this.userId).then(v=> {
-      if(v.data.data.count) {
-        this.msgList[2].count = v.data.data.count
-        this.isDot = true
-      }
-    })
-    // 点赞通知
-    likeNotice(this.userId).then(v=>{
-      if(v.data.data.count) {
-        this.msgList[3].count = v.data.data.count
-        this.isDot = true
-      }
-    })
-  },
   updated() {
-    this.headUrl = this.$store.getters['base/userInfo'].headUrl
+    if(this.$store.getters['base/token']) {
+      this.userId = this.$store.getters['base/userInfo'].userId
+      this.userType = this.$store.getters['base/userInfo'].userType
+      this.token = this.$store.getters['base/token']
+      this.headUrl = this.$store.getters['base/userInfo'].headUrl
+       // 评论通知
+      commentNotice(this.userId).then(v => {
+        if(v.data.data.count) {
+          this.msgList[1].count = v.data.data.count
+          this.isDot = true
+        }
+      })
+      // 关注通知
+      followNotice(this.userId).then(v=> {
+        if(v.data.data.count) {
+          this.msgList[2].count = v.data.data.count
+          this.isDot = true
+        }
+      })
+      // 点赞通知
+      likeNotice(this.userId).then(v=>{
+        if(v.data.data.count) {
+          this.msgList[3].count = v.data.data.count
+          this.isDot = true
+        }
+      })
+    }
   },
   methods: {
     handleSelect(tab, event) {
@@ -258,6 +258,7 @@ export default {
       })
         .then(() => {
           logout().then((v) => {
+            this.token = '',
             localStorage.removeItem('token')
             localStorage.removeItem('userInfo')
             this.$store.commit('base/token', '')

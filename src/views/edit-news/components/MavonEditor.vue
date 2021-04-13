@@ -39,7 +39,6 @@ export default {
       let formData = new FormData()
       formData.append('file', $file)
       uploadEditorImg(formData).then((v) => {
-        console.log(v)
         this.$refs.md.$img2Url(pos, v.data.data)
       })
       // this.$upload

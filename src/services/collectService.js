@@ -13,6 +13,10 @@ export async function getCollectCount(id) {
 // 获取收藏的文章
 export async function collectList(id) {
   var resp = await axios.get(URL + 'collect/select/' + id) 
-    console.log(resp);
+    return resp
+}
+// 获取文章的收藏状态
+export async function isCollect(data) {
+  var resp = await axios.post(URL + 'collect/isCollect', data) 
     return resp
 }

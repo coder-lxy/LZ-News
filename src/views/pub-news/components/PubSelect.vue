@@ -94,7 +94,7 @@ export default {
     },
     handleInputConfirm() {
       let inputValue = this.inputValue
-      if (inputValue && this.dynamicTags.findIndex(inputValue)===-1) {
+      if(inputValue) {
         if(this.dynamicTags.length>=5) {
           this.$message({
             message: '最多只能添加5个标签！',
@@ -107,10 +107,10 @@ export default {
           }) 
         } else {
           this.dynamicTags.push(inputValue)
+          this.inputVisible = false
+          this.inputValue = ''
         }
       }
-      this.inputVisible = false
-      this.inputValue = ''
     },
     pubNews() {
       this.newArticle.labels = this.dynamicTags

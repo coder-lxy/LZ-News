@@ -1,13 +1,15 @@
 <template>
   <div class="my-collect">
     <div class="collect-list" v-if="collectList.length">
-      <div class="list-item" v-for="item in collectList" :key="item.blogId">
+      <div class="list-item" v-for="(item, index) in collectList" :key="item.blogId">
         <el-row>
           <el-col :span="20">
             <el-link :unserLine="false" @click="toDetail(item.blogId, item.userId)">{{item.title}}</el-link>
           </el-col>
           <el-col :span="2" class="icon">
-            <Icon @click="toCollect(item.blogId)" type="collect" ></Icon>
+            <el-button type="text" @click="toCollect(item.blogId, index)" :style="item.status? 'color:#ffcc76': 'color:#999aaa'">
+              <Icon type="collect"></Icon>
+            </el-button>
           </el-col>
         </el-row>
       </div>
@@ -49,14 +51,13 @@ export default {
       })
     },
     // 收藏文章
-    toCollect(id) {
-      alert(11)
+    toCollect(id, index) {
+      console.log(id);
       let resData = {}
       resData.userId = this.$store.getters['base/userInfo'].userId
       resData.blogId = id
       collect(resData).then(v => {
-        this.isCollect = v.data.data.status
-        this.toGetCollectCount()
+        this.collectList[index].status = v.data.data.status
       })
     }
   }
@@ -77,7 +78,7 @@ export default {
   line-height: 46px;
   padding-left: 20px;
 }
-.icon {
+.active {
   color: #ffcc76;
 }
 </style>

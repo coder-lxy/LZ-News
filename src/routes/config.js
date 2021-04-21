@@ -50,6 +50,12 @@ export default {
       name:"hot",
       component:()=>import("@/views/hot/HotNews.vue")
     },
+    // 热点
+    {
+      path:"/newest",
+      name:"newest",
+      component:()=>import("@/views/newest/newestNews.vue")
+    },
     // 科技
     {
       path:"/tech",

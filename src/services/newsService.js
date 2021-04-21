@@ -50,6 +50,17 @@ export async function getHotList(data) {
   var resp = await axios.post(URL + "all/hot/" , data)
   return resp;
 }
+// 最新
+export async function getnewList(data) {
+  var resp = await axios.post(URL + "all/newest/" , data)
+  return resp;
+}
+// 获取今日推荐新闻
+export async function getTodayRec() {
+  var resp = await axios.get(URL + "all/todayRecommend/")
+  // console.log(resp);
+  return resp.data;
+}
 // 根据用户id 获取新闻列表(按最后发布时间)
 export async function getUserNewsList(data) {
   var resp = await axios.post(URL + "all/user", data)

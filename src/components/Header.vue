@@ -21,11 +21,11 @@
         </el-input>
       </el-col>
       <el-col :span="2" style="padding-top: 10px">
-        <el-button type="primary" plain v-if="userType === 1" @click="toWrite()">发布新闻</el-button>
+        <el-button type="primary" plain @click="toWrite()">发布新闻</el-button>
       </el-col>
-      <el-col :span="2" style="padding-top: 10px; margin-left: 18px">
+      <!-- <el-col :span="2" style="padding-top: 10px; margin-left: 18px">
         <el-button type="primary" plain v-if="userType === 2" @click="pubNotice">发布公告</el-button>
-      </el-col>
+      </el-col> -->
       <el-col :span="1" style="padding-top: 10px; margin-left: 20px" v-if="token">
         <el-popover placement="bottom" width="160px" trigger="hover">
           <el-row>
@@ -40,6 +40,14 @@
               </el-button>
             </el-col>
           </el-row>
+          <!-- <el-row>
+            <el-col :span="24">
+              <el-button type="text" style="color:#606266" @click="toLogout">
+                <Icon type="tuichu"></Icon>
+                发布公告
+              </el-button>
+            </el-col>
+          </el-row> -->
           <el-row>
             <el-col :span="24">
               <el-button type="text" style="color:#606266" @click="toLogout">
@@ -56,11 +64,11 @@
           ></el-avatar>
         </el-popover>
       </el-col>
-      <el-col :span="1" style="padding-top: 10px">
+      <!-- <el-col :span="1" style="padding-top: 10px">
         <el-badge>
           <el-button type="text" style="color: #000" @click="dynamic" v-if="token">动态</el-button>
         </el-badge>
-      </el-col>
+      </el-col> -->
       <el-col :span="1" style="padding-top: 10px; margin-lefitem.countt: 20px">
         <el-popover placement="bottom" trigger="hover">
           <el-row v-for="(item,index) in msgList" :key="index">
@@ -76,7 +84,7 @@
       </el-col>
       <el-col :span="1" style="padding-top: 10px">
         <el-button
-          v-if="!this.$store.getters['base/token']"
+          v-if="!token"
           type="text"
           @click="toLoginPage()"
           >登录/注册</el-button
@@ -111,49 +119,13 @@ export default {
           uri: '/recommend',
         },
         {
-          name: '科技',
-          uri: '/tech',
+          name: '最新',
+          uri: '/newest',
         },
         {
-          name: '娱乐',
-          uri: '/ent',
-        },
-        {
-          name: '游戏',
-          uri: '/game',
-        },
-        {
-          name: '体育',
-          uri: '/sports',
-        },
-        {
-          name: '财经',
-          uri: '/finace',
-        },
-        {
-          name: '军事',
-          uri: '/military',
-        },
-        {
-          name: '时尚',
-          uri: '/fashion',
-        },
-        {
-          name: '旅游',
-          uri: '/travel',
-        },
-        {
-          name: '美食',
-          uri: '/food',
-        },
-        // {
-        //   "name": "养生",
-        //   "uri": "/register"
-        // },
-        // {
-        //   "name": "育儿",
-        //   "uri": "/register"
-        // },
+          name: '动态',
+          uri: '/dynamic',
+        }
       ],
       msgList: [
         {
@@ -176,34 +148,34 @@ export default {
       isDot: false
     }
   },
-  created() {
-    this.userId = this.$store.getters['base/userInfo'].userId
-    this.userType = this.$store.getters['base/userInfo'].userType
-    this.token = this.$store.getters['base/token']
-    // 评论通知
-    commentNotice(this.userId).then(v => {
-      if(v.data.data.count) {
-        this.msgList[1].count = v.data.data.count
-        this.isDot = true
-      }
-    })
-    // 关注通知
-    followNotice(this.userId).then(v=> {
-      if(v.data.data.count) {
-        this.msgList[2].count = v.data.data.count
-        this.isDot = true
-      }
-    })
-    // 点赞通知
-    likeNotice(this.userId).then(v=>{
-      if(v.data.data.count) {
-        this.msgList[3].count = v.data.data.count
-        this.isDot = true
-      }
-    })
-  },
   updated() {
-    this.headUrl = this.$store.getters['base/userInfo'].headUrl
+    if(this.$store.getters['base/token']) {
+      this.userId = this.$store.getters['base/userInfo'].userId
+      this.userType = this.$store.getters['base/userInfo'].userType
+      this.token = this.$store.getters['base/token']
+      this.headUrl = this.$store.getters['base/userInfo'].headUrl
+       // 评论通知
+      commentNotice(this.userId).then(v => {
+        if(v.data.data.count) {
+          this.msgList[1].count = v.data.data.count
+          this.isDot = true
+        }
+      })
+      // 关注通知
+      followNotice(this.userId).then(v=> {
+        if(v.data.data.count) {
+          this.msgList[2].count = v.data.data.count
+          this.isDot = true
+        }
+      })
+      // 点赞通知
+      likeNotice(this.userId).then(v=>{
+        if(v.data.data.count) {
+          this.msgList[3].count = v.data.data.count
+          this.isDot = true
+        }
+      })
+    }
   },
   methods: {
     handleSelect(tab, event) {
@@ -258,6 +230,7 @@ export default {
       })
         .then(() => {
           logout().then((v) => {
+            this.token = '',
             localStorage.removeItem('token')
             localStorage.removeItem('userInfo')
             this.$store.commit('base/token', '')

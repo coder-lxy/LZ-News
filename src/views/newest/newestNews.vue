@@ -5,24 +5,19 @@
       <newsList :newsList="newsList"></newsList>
       <Loading v-show="isLoading"></Loading>
     </div>
-     <div v-show="RecList.length != 0" class="right-box">
-        <TodayRec :todayRec="RecList" />
-      </div>
   </div>
 </template>
 
 <script>
 import NewsList from '@/components/NewsList'
-import { getHotList, getTodayRec } from '@/services/newsService'
+import { getnewList } from '@/services/newsService'
 import Loading from "@/components/Loading";
-import TodayRec from "@/components/TodayRec";
 import {debounce} from "@/util/base.js"
 
 export default {
   components: {
     NewsList,
     Loading,
-    TodayRec
   },
   data() {
     return {
@@ -31,23 +26,19 @@ export default {
         page: 1,
         limit: 10,
       },
-      RecList: [],
       isLoading: false,
     }
   },
   created() {
-    this.getHot()
-    getTodayRec().then((v) => {
-      this.RecList = v.data;
-    });
+    this.getNew()
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll, true);
   },
   methods: {
-    getHot() {
+    getNew() {
       this.isLoading = true;
-      getHotList(this.requestData).then((v) => {
+      getnewList(this.requestData).then((v) => {
         if(v.data.data.length===0) {
           // this.$message('暂无热点内容')
         } else {
@@ -62,7 +53,7 @@ export default {
       let clientHeight = e.target.documentElement.clientHeight;
       let scrollHeight = e.target.documentElement.scrollHeight;
       if (scrollTop + clientHeight - scrollHeight > -1) {
-        this.getHot()
+        this.getNew()
       }
     },
   }
@@ -72,12 +63,6 @@ export default {
 <style scoped>
 .main {
   width: 670px;
-  float: left;
-  margin-left: 200px;
-}
-.right-box {
-  margin-right: 100px;
-  margin-top: 10px;
-  float: right;
+  margin: 0 auto;
 }
 </style>

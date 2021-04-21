@@ -37,7 +37,7 @@
           </el-row>
           <el-row>
             <el-col :span="4">用户角色</el-col>
-            <el-col :span="4">{{user.userType}}</el-col>
+            <el-col :span="4">{{userRole[user.userType]}}</el-col>
           </el-row>
           <el-row>
             <el-col :span="4">个人简介</el-col>
@@ -106,7 +106,12 @@ export default {
       isEdit: false,
       editUser: {},
       headUrl: '', // 头像
-      currentUserId: '' //当前登录的用户Id
+      currentUserId: '', //当前登录的用户Id
+      userRole: {
+        0: '普通用户',
+        1: '媒体',
+        2: '管理员'
+      }
     };
   },
   created() {

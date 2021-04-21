@@ -20,6 +20,9 @@ body {
 .clearfix {
 	*zoom:1;
 }
+img {
+    width: 100%;
+}
 img[src=""],
 img:not([src]) {
     opacity:0;

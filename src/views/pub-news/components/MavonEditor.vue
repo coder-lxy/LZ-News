@@ -35,12 +35,10 @@ export default {
     // 将图片上传到服务器，返回地址替换到md中
     $imgAdd(pos, $file) {
       // alert(pos);
-      console.log($file)
       let postUrl = URL + 'uploadeditorimage'
       let formData = new FormData()
       formData.append('file', $file)
       uploadEditorImg(formData).then((v) => {
-        console.log(v)
         this.$refs.md.$img2Url(pos, v.data.data)
       })
       // this.$upload

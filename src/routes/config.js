@@ -50,11 +50,23 @@ export default {
       name:"hot",
       component:()=>import("@/views/hot/HotNews.vue")
     },
-    // 热点
+    // 最新
     {
       path:"/newest",
       name:"newest",
       component:()=>import("@/views/newest/newestNews.vue")
+    },
+    // 动态页
+    {
+      path: '/dynamic',
+      name: 'dynamic',
+      component: () => import('@/views/dynamic/Dynamic.vue')
+    },
+    // 动态页
+    {
+      path: '/today',
+      name: 'today',
+      component: () => import('@/views/today-rec/todayRecNews.vue')
     },
     // 科技
     {
@@ -109,12 +121,6 @@ export default {
       path:"/food",
       name:"food",
       component:()=>import("@/views/channels/food-news.vue")
-    },
-    // 动态页
-    {
-      path: '/dynamic',
-      name: 'dynamic',
-      component: () => import('@/views/dynamic/Dynamic.vue')
     },
     // 用户中心 
     {

@@ -81,18 +81,16 @@ export async function search(msg) {
   var resp = await axios.get(URL + "search/" + msg)
   return resp;
 }
-
-// 
+// 分类
+export async function getClassify(id) {
+  var resp = await axios.get(URL + "gettype/" + id)
+  return resp;
+}
 
 
 
 export async function renewal() {
   var resp = await axios.post(URL + "islogin/")
-  return resp;
-}
-
-export async function getClassify(id) {
-  var resp = await axios.post(URL + "gettype/" + id)
   return resp;
 }
 

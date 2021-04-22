@@ -56,7 +56,6 @@
 
 <script>
 import { publish } from '@/services/newsService.js'
-import { updateNews } from '../../../services/newsService'
 export default {
   props: {
     editArticle: {},

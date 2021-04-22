@@ -1,65 +1,60 @@
 <template>
-  <div class="pub_news">
-    <PubHeader class="header" @pubClick="handleClick"></PubHeader>
+  <div>
+    <WriteBar @showModal="toShowModal" />
     <MavonEditor @getContent="setContent" />
-    <el-dialog
-      title="发布文章"
-      :visible.sync="dialogVisible"
-      width="40%"
-      :before-close="handleClose"
-    >
-      <PubSelect :newArticle="newArticle" @hiddenDialog="handleHid"></PubSelect>
-    </el-dialog>
+    <Publish
+      v-show="modalStatus"
+      @modalChange="toChange"
+      :title="this.title"
+      :content="this.content"
+    />
+    <div v-show="modalStatus" class="mask"></div>
   </div>
 </template>
 
 <script>
-import PubHeader from './components/PubHeader'
-import PubSelect from './components/PubSelect'
-import MavonEditor from './components/MavonEditor'
+import MavonEditor from "./components/MavonEditor";
+import Publish from "./components/Publish";
+import WriteBar from "./components/WriteBar";
+// import Mask from "../components/Mask";
 export default {
   data() {
     return {
-      newArticle: {
-        title: '',
-        summary: '',
-        article: '',
-        labels: [],
-        types: [],
-      },
-      dialogVisible: false,
-    }
+      modalStatus: false,
+      title:'',
+      content:''
+    };
   },
   components: {
-    PubHeader,
-    PubSelect,
     MavonEditor,
+    Publish,
+    WriteBar,
+    // Mask,
   },
   methods: {
-    handleClick(val) {
-      console.log(this.newArticle.article)
-      this.newArticle.title = val
-      this.dialogVisible = true
+    toShowModal(status,title) {
+      this.modalStatus = status;
+      this.title=title
+    },
+    toChange(status) {
+      this.modalStatus = status;
     },
     setContent(content) {
-      this.newArticle.article = content
-    },
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then((_) => {
-          done()
-        })
-        .catch((_) => {})
-    },
-    handleHid(val) {
-      this.dialogVisible = val
-    },
+      this.content=content
+    }
   },
-}
+};
 </script>
 
 <style scoped>
-.pub_news .header {
-  margin: 10px 20px;
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 0%, 63%, 0.5);
+  z-index: 99999;
+  /* overflow: auto; */
 }
 </style>

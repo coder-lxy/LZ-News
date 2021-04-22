@@ -125,6 +125,10 @@ export default {
         {
           name: '动态',
           uri: '/dynamic',
+        },
+        {
+          name: '今日推荐',
+          uri: '/today',
         }
       ],
       msgList: [

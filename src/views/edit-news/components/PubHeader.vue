@@ -13,7 +13,7 @@
       </el-col>
       <el-col :span="2" class="pub_btn">
         <el-button type="primary" size="medium" @click="btnClick"
-          >发布</el-button
+          >保存</el-button
         >
       </el-col>
     </el-row>

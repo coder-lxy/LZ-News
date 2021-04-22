@@ -6,17 +6,24 @@
       @pubClick="handleClick"
     ></PubHeader>
     <MavonEditor :content="editArticle.article" @getContent="setContent" />
-    <el-dialog
+     <Publish
+      v-show="modalStatus"
+      @modalChange="toChange"
+      :editArticle="editArticle"
+    />
+    <div v-show="modalStatus" class="mask"></div>
+    <!-- <el-dialog
       title="发布文章"
       :visible.sync="dialogVisible"
       width="40%"
       :before-close="handleClose"
     >
+
       <PubSelect
         :editArticle="editArticle"
         @hiddenDialog="handleHid"
       ></PubSelect>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 <script>

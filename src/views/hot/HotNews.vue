@@ -5,24 +5,19 @@
       <newsList :newsList="newsList"></newsList>
       <Loading v-show="isLoading"></Loading>
     </div>
-     <div v-show="RecList.length != 0" class="right-box">
-        <TodayRec :todayRec="RecList" />
-      </div>
   </div>
 </template>
 
 <script>
 import NewsList from '@/components/NewsList'
-import { getHotList, getTodayRec } from '@/services/newsService'
+import { getHotList } from '@/services/newsService'
 import Loading from "@/components/Loading";
-import TodayRec from "@/components/TodayRec";
 import {debounce} from "@/util/base.js"
 
 export default {
   components: {
     NewsList,
     Loading,
-    TodayRec
   },
   data() {
     return {
@@ -37,9 +32,6 @@ export default {
   },
   created() {
     this.getHot()
-    getTodayRec().then((v) => {
-      this.RecList = v.data;
-    });
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll, true);
@@ -72,12 +64,6 @@ export default {
 <style scoped>
 .main {
   width: 670px;
-  float: left;
-  margin-left: 200px;
-}
-.right-box {
-  margin-right: 100px;
-  margin-top: 10px;
-  float: right;
+  margin: 0 auto;
 }
 </style>

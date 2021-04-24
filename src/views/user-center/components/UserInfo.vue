@@ -71,7 +71,7 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item label="用户角色:">
-                  <el-input v-model="editUser.userType" :disabled="true"></el-input>
+                  <el-input :value="userRole[editUser.userType]" :disabled="true"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -109,7 +109,7 @@ export default {
       currentUserId: '', //当前登录的用户Id
       userRole: {
         0: '普通用户',
-        1: '媒体',
+        1: '媒体用户',
         2: '管理员'
       }
     };

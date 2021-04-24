@@ -2,7 +2,7 @@
   <div class="login">
     <div class="title">登录</div>
     <el-form :model="loginForm" ref="loginForm" :rules="rules">
-      <el-form-item label="账号" prop="username">
+      <el-form-item label="用户名" prop="username">
         <el-input v-model="loginForm.username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">

@@ -49,7 +49,7 @@ export default {
               this.$router.push({
                 path: '/register',
               })
-              this.$message(v.data.msg)
+              this.$message(v.data.errorMessage)
             }
           })
         } else {

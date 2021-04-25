@@ -28,26 +28,21 @@
 </template>
 <script>
 import PubHeader from './components/PubHeader'
-import PubSelect from './components/PubSelect'
+import Publish from './components/Publish'
+// import PubSelect from './components/PubSelect'
 import MavonEditor from './components/MavonEditor'
 import { getNews } from '@/services/newsService'
 import TurndownService from 'turndown'
 export default {
   data() {
     return {
-      editArticle: {
-        title: '',
-        summary: '',
-        article: '',
-        labels: [],
-        types: [],
-      },
-      dialogVisible: false,
+      editArticle: {},
+      modalStatus: false,
     }
   },
   components: {
     PubHeader,
-    PubSelect,
+    Publish,
     MavonEditor,
   },
   created() {
@@ -64,9 +59,8 @@ export default {
   },
   methods: {
     handleClick(val) {
-      console.log(this.editArticle.article)
       this.editArticle.title = val
-      this.dialogVisible = true
+      this.modalStatus = true
     },
     setContent(content) {
       console.log(content);
@@ -82,6 +76,9 @@ export default {
     handleHid(val) {
       this.dialogVisible = val
     },
+    toChange(status) {
+      this.modalStatus = status
+    }
   },
 }
 </script>

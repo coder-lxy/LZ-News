@@ -1,6 +1,6 @@
 <template>
   <div class="type-list">
-    <span>我的分类</span>
+    <span class="title">分类专栏</span>
     <el-row v-for="item in typeList" :key="item">
       <el-col :span="24">
         {{item}}
@@ -31,13 +31,21 @@ export default {
 
 <style scoped>
 .type-list {
+  padding: 20px;
   width: 100%;
   height: 100px;
   background-color: #fff;
 }
+.title {
+  display: block;
+  color: #3d3d3d;
+  background: #f5f5f5;
+  padding: 0 16px;
+  height: 38px;
+  line-height: 38px;
+}
 .type-list .el-row {
-  height: 26px;
-  background-color: rgb(236, 20, 20);
+  margin-top: 16px;
 }
 
 </style>

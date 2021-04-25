@@ -141,7 +141,7 @@
       <div class="modal-bottom">
         <button class="button" @click="modalClose()">取消</button>
         <!-- <button class="button btn-blue">保存为草稿</button> -->
-        <button class="button btn-red" @click="pubArticle()">发布文章</button>
+        <button class="button btn-red" @click="pubArticle()">保存</button>
       </div>
     </div>
   </div>
@@ -388,12 +388,23 @@ export default {
     };
   },
   created() {
+    console.log('editArticle', this.editArticle)
+    this.newBlog = this.editArticle
     this.classify = this.editArticle.types
     this.selectedTags = this.editArticle.labels
     getClassify(this.$store.getters['base/userInfo'].userId).then((v) => {
       this.userClassify = v.data;
       // console.log(this.userClassify);
     });
+  },
+  watch: {
+    editArticle: {
+      handler: function(newVal,oldVal) {
+        console.log(newVal)
+        this.newBlog = newVal
+      },
+      deep: true
+    }
   },
   methods: {
     modalClose() {
@@ -448,14 +459,10 @@ export default {
       this.classify.splice(index, 1);
     },
     pubArticle() {
-      // this.notice.title = this.title;
-      // this.notice.article = this.content;
-      this.newBlog.title = this.title;
-      this.newBlog.article = this.content;
-      console.log(this.newBlog.article);
       this.newBlog.types = this.classify;
       this.newBlog.labels = this.selectedTags;
-      publish(this.newBlog).then((v) => {
+      updateNews(this.newBlog).then((v) => {
+        this.$message('保存成功')
         this.$router.push({
           path:'/'
         })

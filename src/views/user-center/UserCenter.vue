@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="main">
-      <AsideProfile :userId="userId" class="left"></AsideProfile>
+      <div class="left">
+        <AsideProfile :userId="userId" class="left-item"></AsideProfile>
+        <TypeList :userId="userId" class="left-item"></TypeList>
+      </div>
       <UserManage :userId="userId" class="right"></UserManage>
     </div>
   </div>
@@ -9,6 +12,7 @@
 
 <script>
 import AsideProfile from '@/components/AsideProfile'
+import TypeList from './components/TypeList'
 import UserManage from './components/UserManage.vue'
 export default {
   data() {
@@ -19,6 +23,8 @@ export default {
   components: {
     AsideProfile,
     UserManage,
+    TypeList,
+    TypeList
   },
   created() {
     this.userId = this.$route.query.id
@@ -37,8 +43,12 @@ export default {
 }
 .left {
   float: left;
+  width: 300px;
   margin-right: 10px;
   margin-top: 20px;
+}
+.left .left-item {
+  margin-bottom: 20px;
 }
 .right {
   float: left;

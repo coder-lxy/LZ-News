@@ -21,7 +21,7 @@
         </el-input>
       </el-col>
       <el-col :span="2" style="padding-top: 10px">
-        <el-button type="primary" plain @click="toWrite()">发布新闻</el-button>
+        <el-button type="primary" plain @click="toWrite()">发布文章</el-button>
       </el-col>
       <!-- <el-col :span="2" style="padding-top: 10px; margin-left: 18px">
         <el-button type="primary" plain v-if="userType === 2" @click="pubNotice">发布公告</el-button>

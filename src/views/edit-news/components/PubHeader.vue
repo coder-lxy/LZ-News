@@ -5,7 +5,7 @@
         <el-input
           type="text"
           placeholder="请输入新闻标题"
-          v-model="title"
+          v-model="newTitle"
           maxlength="50"
           show-word-limit
         >
@@ -25,9 +25,22 @@ export default {
   props: {
     title: '',
   },
+  data() {
+    return {
+      newTitle: ''
+    }
+  },
+  created() {
+    this.newTitle = this.title
+  },
+  watch: {
+    title(newVal, oldValue) {
+      this.newTitle = newVal
+    }
+  },
   methods: {
     btnClick() {
-      this.$emit('pubClick', this.title)
+      this.$emit('pubClick', this.newTitle)
     },
   },
 }

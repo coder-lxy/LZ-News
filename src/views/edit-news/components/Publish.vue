@@ -151,7 +151,7 @@
 import { getClassify, updateNews } from "@/services/newsService";
 export default {
   props: {
-    editArticle: {},
+    editArticle: null,
   },
   data() {
     return {
@@ -400,8 +400,9 @@ export default {
   watch: {
     editArticle: {
       handler: function(newVal,oldVal) {
-        console.log(newVal)
         this.newBlog = newVal
+        this.classify = this.editArticle.types
+        this.selectedTags = this.editArticle.labels
       },
       deep: true
     }

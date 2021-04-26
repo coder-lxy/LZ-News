@@ -21,6 +21,10 @@
         <span class="count" v-if="collectCount">{{ collectCount }}</span>
       </el-col>
     </el-row>
+    <el-row class="article-info-box">
+      <el-col :span="2">文章标签:</el-col>
+      <span v-for="item in news.labels" :key="item" class="label-item">{{item}}</span>
+    </el-row>
     <div v-html="news.article" class="article-content"></div>
     <div class="more-toolbox">
       <el-row class="toolbox-list">
@@ -143,12 +147,23 @@ export default {
 }
 .el-row.article-info-box {
   height: 32px;
-  line-height: 32px;
   padding-left: 10px;
-  background: #f7f7fc;
+  background-color: #f7f7fc;
   border-radius: 4px;
   color: #999aaa;
   font-size: 14px;
+}
+.label-item {
+  margin-right: 8px;
+  padding: 3px 6px;
+  font-size: 12px;
+  background-color: #fff;
+  color: #5094d5;
+  border: 1px solid #eaeaef;
+  height: 24px;
+  line-height: 17px;
+  border-radius: 2px;
+  display: inline-block;
 }
 .el-row.toolbox-list {
   height: 32px;

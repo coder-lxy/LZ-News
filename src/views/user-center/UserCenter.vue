@@ -1,10 +1,7 @@
 <template>
   <div>
     <div class="main">
-      <div class="left">
-        <AsideProfile :userId="userId" class="left-item"></AsideProfile>
-        <TypeList :userId="userId" class="left-item"></TypeList>
-      </div>
+      <AsideProfile :userId="userId" class="left"></AsideProfile>
       <UserManage :userId="userId" class="right"></UserManage>
     </div>
   </div>
@@ -46,9 +43,6 @@ export default {
   width: 300px;
   margin-right: 10px;
   margin-top: 20px;
-}
-.left .left-item {
-  margin-bottom: 20px;
 }
 .right {
   float: left;

@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     handleClick(val) {
+      console.log(val)
       this.editArticle.title = val
       this.modalStatus = true
     },

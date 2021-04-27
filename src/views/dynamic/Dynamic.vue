@@ -2,7 +2,7 @@
   <div>
     <div class="main">
        <el-backtop></el-backtop>
-      <newsList :newsList="newsList"></newsList>
+      <NewsList :newsList="newsList"></NewsList>
       <div v-if="isShow">暂无内容</div>
       <Loading v-show="isLoading"></Loading>
     </div>
@@ -10,12 +10,13 @@
 </template>
 
 <script>
-import DynamicList from "@/components/DynamicList";
+// import DynamicList from "@/components/DynamicList";
+import NewsList from "@/components/NewsList";
 import {getFollow} from "@/services/newsService"
 import Loading from "@/components/Loading";
 export default {
   components: {
-    DynamicList,
+    NewsList,
     Loading
   },
   data() {
@@ -42,6 +43,7 @@ export default {
         if(v.data.data.length===0) {
           // this.$message('暂无内容！')
         } else {
+          console.log(v.data.data);
           this.isShow = false
           this.newsList = this.newsList.concat(v.data.data);
           this.requestData.page++;

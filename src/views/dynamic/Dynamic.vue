@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="main">
-      <el-backtop></el-backtop>
-      <DynamicList :dynamicList= "newsList"></DynamicList>
+       <el-backtop></el-backtop>
+      <newsList :newsList="newsList"></newsList>
+      <div v-if="isShow">暂无内容</div>
       <Loading v-show="isLoading"></Loading>
     </div>
   </div>
@@ -25,6 +26,7 @@ export default {
         limit: 10
       },
       isLoading: false,
+      isShow: false
     }
   },
   created() {
@@ -40,10 +42,14 @@ export default {
         if(v.data.data.length===0) {
           // this.$message('暂无内容！')
         } else {
+          this.isShow = false
           this.newsList = this.newsList.concat(v.data.data);
           this.requestData.page++;
         }
         this.isLoading = false;
+        if(!this.newsList.length) {
+          this.isShow = true
+        }
       });
     },
     handleScroll(e) {

@@ -21,11 +21,11 @@
         </el-input>
       </el-col>
       <el-col :span="2" style="padding-top: 10px">
-        <el-button type="primary" plain @click="toWrite()">发布文章</el-button>
+        <el-button type="primary" plain  v-if="userType !== 2" @click="toWrite()">发布文章</el-button>
       </el-col>
-      <!-- <el-col :span="2" style="padding-top: 10px; margin-left: 18px">
+      <el-col :span="2" style="padding-top: 10px; margin-left: 18px">
         <el-button type="primary" plain v-if="userType === 2" @click="pubNotice">发布公告</el-button>
-      </el-col> -->
+      </el-col>
       <el-col :span="1" style="padding-top: 10px; margin-left: 20px" v-if="token">
         <el-popover placement="bottom" width="160px" trigger="hover">
           <el-row>
@@ -97,7 +97,7 @@
 <script>
 import Icon from './Icon'
 import { logout } from '@/services/userService'
-import { commentNotice, likeNotice, followNotice } from '@/services/noticeService'
+import { commentNotice, likeNotice, followNotice, noticeMsg } from '@/services/noticeService'
 export default {
   components: {
     Icon,
@@ -111,7 +111,7 @@ export default {
       searchWord: '', // 搜索关键字
       myMenu: [
         {
-          name: '热点',
+          name: '热榜',
           uri: '/hot',
         },
         {
@@ -123,7 +123,7 @@ export default {
           uri: '/newest',
         },
         {
-          name: '动态',
+          name: '关注',
           uri: '/dynamic',
         },
         {
@@ -176,6 +176,13 @@ export default {
       likeNotice(this.userId).then(v=>{
         if(v.data.data.count) {
           this.msgList[3].count = v.data.data.count
+          this.isDot = true
+        }
+      })
+      // 公告通知
+      noticeMsg().then(v=> {
+        if(v.data.data.count) {
+          this.msgList[0].count = v.data.data.count
           this.isDot = true
         }
       })

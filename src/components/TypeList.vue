@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     showList(typeName) {
-      console.log(typeName);
       this.$emit('showList', typeName)
     }
   }

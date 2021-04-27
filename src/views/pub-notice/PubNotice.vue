@@ -6,7 +6,7 @@
         <el-input
           type="text"
           placeholder="请输入公告标题"
-          v-model="newArticle.title"
+          v-model="notice.title"
           maxlength="50"
           show-word-limit
         >
@@ -24,36 +24,44 @@
 </template>
 
 <script>
-// import PubHeader from './components/PubHeader'
+import { pubNotice } from '@/services/noticeService'
 import MavonEditor from './components/MavonEditor'
 export default {
   data() {
     return {
-      newArticle: {
+      notice: {
         title: '',
-        summary: '',
-        article: '',
-        labels: [],
-        types: [],
-      },
+        article: ''
+      }
     }
   },
   components: {
-    // PubHeader,
-    // PubSelect,
     MavonEditor,
   },
   methods: {
     btnClick(val) {
-      // this.newArticle.title = val
-      if(val && this.newArticle.article) {
-
+      if(this.notice.title && this.notice.article) {
+        pubNotice(this.notice).then(v => {
+          console.log(v)
+          if(v.data.code === 0) {
+            this.$message({
+              type: 'success',
+              message: v.data.msg
+            })
+            this.$router.push('/hot')
+          } else {
+            this.$message({
+              type: 'error',
+              message: v.data.errorMessage
+            })
+          }
+        })
       } else {
         this.$message('标题和内容不能为空！')
       }
     },
     setContent(content) {
-      this.newArticle.article = content
+      this.notice.article = content
     }
   }
 }

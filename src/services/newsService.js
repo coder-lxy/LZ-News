@@ -86,8 +86,11 @@ export async function getClassify(id) {
   var resp = await axios.get(URL + "gettype/" + id)
   return resp;
 }
-
-
+// 根据类名和用户名获取文章
+export async function getTypeNews(data) {
+  var resp = await axios.post(URL + "all/getBlogByTypeNameAndUserId/", data)
+  return resp;
+}
 
 export async function renewal() {
   var resp = await axios.post(URL + "islogin/")
@@ -100,26 +103,7 @@ export async function getUserBlogs(userId) {
   var resp = await axios.post(URL + "publishcomment/", userId)
   return resp;
 }
-// 获取公告数量
-export async function noticeMsg() {
-  var resp = await axios.post(URL + "msg/notice/")
-  return resp;
-}
-// 获取公告列表
-export async function getNotice() {
-  var resp = await axios.post(URL + "msg/noticedetail/")
-  return resp;
-}
-// 查看公告
-export async function lookNotice(id) {
-  var resp = await axios.post(URL + "msg/noticedetail/"+id)
-  return resp;
-}
-// 发布公告
-export async function pubNotice(obj) {
-  var resp = await axios.post(URL + "admin/notice/",obj)
-  return resp;
-}
+
 
 
 

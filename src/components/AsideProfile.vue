@@ -133,7 +133,7 @@ export default {
 
 <style scoped>
 .aside-box {
-  width: 22%;
+  width: 100%;
   background-color: #fff;
   padding-bottom: 10px;
   margin-bottom: 8px;

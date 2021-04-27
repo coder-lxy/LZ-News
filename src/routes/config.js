@@ -134,6 +134,18 @@ export default {
       name: "PubNotice",
       component:()=>import("@/views/pub-notice/PubNotice.vue")
     },
+    // // 今日推荐
+    // {
+    //   path: '/today',
+    //   name: 'today',
+    //   component: () => import('@/views/today-rec/todayRecNews.vue')
+    // },
+    // // 公告
+    // {
+    //   path: '/notice',
+    //   name: 'notice',
+    //   component: () => import('@/views/notice/Notice.vue')
+    // },
     {
       path: "*", // 匹配所有路径
       name:"NotFound",

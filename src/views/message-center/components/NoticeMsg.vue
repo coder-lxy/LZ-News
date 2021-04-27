@@ -3,29 +3,48 @@
     <div class="msg-list" v-if="msgList.length">
       <div class="msg-list-item" v-for="item in msgList" :key="item.remindId">
         <el-row>
-          <el-col :span="24">{{item.remindContent}}</el-col>
+          <el-col :span="24">
+            <el-link :underline=false @click="toDetail(item.noticeId)">{{item.noticeTitle}}</el-link>
+          </el-col>
         </el-row>
       </div>
     </div>
     <div class="msg-list" v-else>暂无公告</div>
+    <el-dialog title="公告详情" :visible.sync="dialogVisible" width="30%">
+      <span>{{detail}}</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-// import { lookLike } from '@/services/noticeService.js'
+import { getNotice,lookNotice } from '@/services/noticeService.js'
 export default {
   data() {
     return {
-      msgList: []
+      msgList: [],
+      detail: '',
+      dialogVisible: false
     }
   },
   props: {
     userId: ''
   },
   created() {
-    // lookLike(this.userId).then(v=> {
-    //   this.msgList = v.data.data
-    // })
+    getNotice().then(v=> {
+      this.msgList = v.data.data
+      console.log(this.msgList);
+    })
+  },
+  methods: {
+    toDetail(id) {
+      lookNotice(id).then(v=> {
+        this.detail = v.data.data.noticeContent
+        this.dialogVisible = true
+      })
+    }
   }
 }
 </script>

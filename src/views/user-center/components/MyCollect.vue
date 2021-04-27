@@ -6,10 +6,10 @@
           <el-col :span="20">
             <el-link :unserLine="false" @click="toDetail(item.blogId, item.userId)">{{item.title}}</el-link>
           </el-col>
-          <el-col :span="2" class="icon">
-            <el-button type="text" @click="toCollect(item.blogId, index)" :style="item.status? 'color:#ffcc76': 'color:#999aaa'">
-              <Icon type="collect"></Icon>
-            </el-button>
+          <el-col :span="2" class="icon" :class="{ active: item.status === 1 }">
+            <span @click="toCollect(item.blogId, index)">
+              <Icon type="collect" ></Icon>
+            </span>
           </el-col>
         </el-row>
       </div>
@@ -52,7 +52,6 @@ export default {
     },
     // 收藏文章
     toCollect(id, index) {
-      console.log(id);
       let resData = {}
       resData.userId = this.$store.getters['base/userInfo'].userId
       resData.blogId = id
@@ -78,7 +77,10 @@ export default {
   line-height: 46px;
   padding-left: 20px;
 }
-.active {
+.icon {
+  color: #c0c4cc;
+}
+.icon.active {
   color: #ffcc76;
 }
 </style>

@@ -39,11 +39,13 @@ export default {
 }
 .aside {
   float: left;
+  width: 22%;
   margin-top: 10px;
   margin-right: 20px;
 }
 .main {
   float: left;
+  width: 60%;
   margin-top: 10px;
   max-width: 980px;
 }

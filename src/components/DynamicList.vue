@@ -7,7 +7,7 @@
         </el-col>
         <el-col :span="6" >
           <el-link class="username" :underline="false" @click="toUserCenter(item.userId)">{{item.username}}</el-link>
-          <span>发布了博客</span>
+          <span>发布了新闻</span>
         </el-col>
       </el-row>
       <el-row>

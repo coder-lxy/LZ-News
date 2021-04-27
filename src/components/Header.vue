@@ -89,7 +89,7 @@
 <script>
 import Icon from './Icon'
 import { logout } from '@/services/userService'
-import { commentNotice, likeNotice, followNotice } from '@/services/noticeService'
+import { commentNotice, likeNotice, followNotice, noticeMsg } from '@/services/noticeService'
 export default {
   components: {
     Icon,
@@ -200,6 +200,13 @@ export default {
       likeNotice(this.userId).then(v=>{
         if(v.data.data.count) {
           this.msgList[3].count = v.data.data.count
+          this.isDot = true
+        }
+      })
+      // 公告通知
+      noticeMsg().then(v=>{
+        if(v.data.data.count) {
+          this.msgList[0].count = v.data.data.count
           this.isDot = true
         }
       })

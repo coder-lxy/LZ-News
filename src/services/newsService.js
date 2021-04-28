@@ -75,22 +75,21 @@ export async function search(msg) {
   var resp = await axios.get(URL + "search/" + msg)
   return resp;
 }
-
-// 
-
-
+// 获取用户分类
+export async function getClassify(id) {
+  var resp = await axios.get(URL + "gettype/" + id)
+  return resp;
+}
+// 获取今日推荐
+export async function getTodayRec() {
+  var resp = await axios.get(URL + "all/todayRecommend/")
+  return resp;
+}
 
 export async function renewal() {
   var resp = await axios.post(URL + "islogin/")
   return resp;
 }
-
-export async function getClassify(id) {
-  var resp = await axios.get(URL + "gettype/" + id)
-  return resp;
-}
-
-
 
 export async function getUserBlogs(userId) {
   var resp = await axios.post(URL + "publishcomment/", userId)

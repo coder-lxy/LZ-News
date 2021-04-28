@@ -46,7 +46,7 @@ export default {
           if(v.data.code === 0) {
             this.$message({
               type: 'success',
-              message: v.data.msg
+              message: '发布成功！'
             })
             this.$router.push('/hot')
           } else {

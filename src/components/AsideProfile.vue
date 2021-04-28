@@ -77,6 +77,7 @@ import { getUserInfo } from '@/services/userService'
 export default {
   data() {
     return {
+      token:'',
       currentUserId: '',
       isFollow: 0,
       userInfo: null
@@ -86,8 +87,11 @@ export default {
     userId: ''
   },
   created() {
+    this.token =this.$store.getters['base/token']
+    if(this.userId) {
+      this.getUser()
+    }
     this.currentUserId = this.$store.getters['base/userInfo'].userId
-    this.getUser()
   },
   watch: {
     $route(to, from) {
@@ -98,7 +102,9 @@ export default {
     getUser() {
       getUserInfo(this.userId).then(v=>{
         this.userInfo = v.data
-        this.getFollowStatus()
+        if(this.token) {
+          this.getFollowStatus()
+        }
       })
     },
     toUserCenter(id) {
@@ -120,12 +126,20 @@ export default {
     },
     // 关注或取消关注
     getFollow(id) {
-      let resData = {}
-      resData.userId = this.$store.getters['base/userInfo'].userId
-      resData.followUserId = id
-      follow(resData).then(v=> {
-        this.isFollow = v.data.data.status
-      })
+      if(this.token) {
+        let resData = {}
+        resData.userId = this.$store.getters['base/userInfo'].userId
+        resData.followUserId = id
+        follow(resData).then(v=> {
+          this.isFollow = v.data.data.status
+        })
+      } else {
+        this.$message({
+          type: 'warning',
+          message: '请先登录！'
+        })
+      }
+      
     }
   }
 }

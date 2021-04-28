@@ -98,6 +98,7 @@ import { getComment, pubComment, delComment } from '@/services/newsService'
 export default {
   data() {
     return {
+      token: '',
       currentUserId: '',
       comments: {},
       commentContent: '', // 评论内容
@@ -123,6 +124,7 @@ export default {
     blogId: ''
   },
   created() {
+    this.token =this.$store.getters['base/token']
     this.currentUserId = this.$store.getters['base/userInfo'].userId // 通过当前用户控制删除评论按钮显示
     this.initComment()
   },
@@ -135,14 +137,22 @@ export default {
       })
     },
     toPubComment(val) {
-      this.comment.blogId = this.blogId
-      this.comment.userId = this.currentUserId
-      this.comment.content = val
-      pubComment(this.comment).then((v) => {
-        this.initComment()
-        this.commentContent = ''
-        this.replyContent = ''
-      })
+      if(this.token) {
+        this.comment.blogId = this.blogId
+        this.comment.userId = this.currentUserId
+        this.comment.content = val
+        pubComment(this.comment).then((v) => {
+          this.initComment()
+          this.commentContent = ''
+          this.replyContent = ''
+        })
+      } else {
+        this.$message({
+          type: 'warning',
+          message: '请先登录！'
+        })
+      }
+      
     },
     // 删除评论
     toDelComment(id) {

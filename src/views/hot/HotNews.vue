@@ -5,11 +5,15 @@
       <newsList :newsList="newsList"></newsList>
       <Loading v-show="isLoading"></Loading>
     </div>
+    <div class="right">
+      <TodayRec></TodayRec>
+    </div>
   </div>
 </template>
 
 <script>
 import NewsList from '@/components/NewsList'
+import TodayRec from '@/components/TodayRec'
 import { getHotList } from '@/services/newsService'
 import Loading from "@/components/Loading";
 import {debounce} from "@/util/base.js"
@@ -17,6 +21,7 @@ import {debounce} from "@/util/base.js"
 export default {
   components: {
     NewsList,
+    TodayRec,
     Loading,
   },
   data() {
@@ -62,7 +67,14 @@ export default {
 
 <style scoped>
 .main {
-  width: 670px;
-  margin: 0 auto;
+  margin-left: 200px;
+  width: 46%;
+  float: left;
+}
+.right {
+  margin-top: 10px;
+  width: 30%;
+  float: right;
+  margin-right: 30px;
 }
 </style>

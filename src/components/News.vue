@@ -35,7 +35,7 @@
             :class="{ active: news.isLike === 1 }"
           >
             <Icon type="like"></Icon>
-            <span> {{ news.isLike === 1 ? '已赞' : '点赞' }}</span>
+            <span> {{ news.isLike === 1&& token ? '已赞' : '点赞' }}</span>
             <span class="count">{{ news.likeCount }}</span>
           </el-link>
         </el-col>
@@ -49,7 +49,7 @@
         <el-col :span="3">
           <el-link :underline="false" @click="toCollect(news.blogId)" :class="{ active: isCollect === 1 }">
             <Icon type="collect"></Icon>
-            <span>  {{ isCollect === 1 ? '已收藏' : '收藏' }}</span>
+            <span>  {{ isCollect === 1&& token ? '已收藏' : '收藏' }}</span>
             <span class="count">{{ collectCount }}</span>
           </el-link>
         </el-col>
@@ -72,13 +72,15 @@ export default {
     return {
       news: {},
       isCollect: 0, // 收藏状态
-      collectCount: 0 // 收藏量
+      collectCount: 0, // 收藏量
+      token: ''
     }
   },
   components: {
     Icon,
   },
   created() {
+    this.token =this.$store.getters['base/token']
     getNews(this.blogId).then((v) => {
       this.news = v.data
     })
@@ -87,10 +89,17 @@ export default {
   },
   methods: {
     changeLike(id) {
-      like(id).then((v) => {
-        this.news.likeCount = v.data.data.likeCount
-        this.news.isLike = v.data.data.isLike
-      })
+      if(this.token === ''|| this.token === null) {
+        this.$message({
+          type: 'warning',
+          message: '请先登录！'
+        })
+      } else {
+        like(id).then((v) => {
+          this.news.likeCount = v.data.data.likeCount
+          this.news.isLike = v.data.data.isLike
+        })
+      }
     },
     // 获取收藏状态
     getCollectStatus() {
@@ -117,13 +126,21 @@ export default {
     },
     // 收藏文章
     toCollect(id) {
-      let resData = {}
-      resData.userId = this.$store.getters['base/userInfo'].userId
-      resData.blogId = id
-      collect(resData).then(v => {
-        this.isCollect = v.data.data.status
-        this.toGetCollectCount()
-      })
+      if(this.token === ''|| this.token === null) {
+        this.$message({
+          type: 'warning',
+          message: '请先登录！'
+        })
+      } else {
+        let resData = {}
+        resData.userId = this.$store.getters['base/userInfo'].userId
+        resData.blogId = id
+        collect(resData).then(v => {
+          this.isCollect = v.data.data.status
+          this.toGetCollectCount()
+        })
+      }
+      
     }
   },
 }

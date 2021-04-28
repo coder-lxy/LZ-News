@@ -125,7 +125,7 @@ export default {
 }
 img {
   width: 220px;
-  height: 130px;
+  max-height: 160px;
 }
 .el-main {
   color: #8a8a8a;
